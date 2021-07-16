@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import ClashRoyal.BoardManager.CellValue;
 
 public class BoardGame extends Group {
-    public final static double CELL_WIDTH = 17.5;
+    public final static double CELL_WIDTH = 19.6;
 
     private int rowCount;
     private int columnCount;
@@ -155,7 +155,7 @@ public class BoardGame extends Group {
 
                 //make ghosts "blink" towards the end of ghostEatingMode (display regular ghost images on alternating updates of the counter)
                 if (BoardManager.isGhostEatingMode()) {
-                    if (Controller.getGhostEatingModeCounter() <= 6 && (Controller.getGhostEatingModeCounter() % 2 == 0)) {
+                    if (BoardController.getGhostEatingModeCounter() <= 6 && (BoardController.getGhostEatingModeCounter() % 2 == 0)) {
                         cellViews[row][column].setImage(ghostNormal);
                     }
                     //display blue ghosts in ghostEatingMode

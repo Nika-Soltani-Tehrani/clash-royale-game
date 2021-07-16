@@ -8,7 +8,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.util.Timer;
 
-public class Controller implements EventHandler<KeyEvent> {
+public class BoardController implements EventHandler<KeyEvent> {
 
     final private static double FRAMES_PER_SECOND = 5.0;
     @FXML private Label scoreLabel;
@@ -21,7 +21,7 @@ public class Controller implements EventHandler<KeyEvent> {
     private static int ghostEatingModeCounter;
     private boolean paused;
 
-    public Controller() {
+    public BoardController() {
         this.paused = false;
     }
 

@@ -49,7 +49,7 @@ public class BoardManager {
      * @param fileName txt file containing the board configuration
      */
     public void initializeLevel(String fileName) {
-        rowCount = 36;
+        rowCount = 32;
         columnCount = 19;
 
         File file = new File(fileName);
@@ -62,12 +62,6 @@ public class BoardManager {
 
         grid = new CellValue[rowCount][columnCount];
         int row = 0;
-        int pacmanRow = 0;
-        int pacmanColumn = 0;
-        int ghost1Row = 0;
-        int ghost1Column = 0;
-        int ghost2Row = 0;
-        int ghost2Column = 0;
 
         int blueKingRow = 0;
         int blueKingColumn = 0;
@@ -148,12 +142,11 @@ public class BoardManager {
     public void startNewGame() {
         gameOver = false;
         youWon = false;
-        ghostEatingMode = false;
         rowCount = 0;
         columnCount = 0;
         score = 0;
         level = 1;
-        initializeLevel(Controller.getLevelFile());
+        initializeLevel(BoardController.getLevelFile());
     }
 
     /** Initialize the level map for the next level
@@ -165,9 +158,8 @@ public class BoardManager {
             rowCount = 0;
             columnCount = 0;
             youWon = false;
-            ghostEatingMode = false;
             try {
-                this.initializeLevel(Controller.getLevelFile(level - 1));
+                this.initializeLevel(BoardController.getLevelFile(level - 1));
             }
             catch (ArrayIndexOutOfBoundsException e) {
                 //if there are no levels left in the level array, the game ends
@@ -179,7 +171,7 @@ public class BoardManager {
     }*/
 
     /**
-     * Move PacMan based on the direction indicated by the user (based on keyboard input from the Controller)
+     * Move PacMan based on the direction indicated by the user (based on keyboard input from the BoardController)
      * @param direction the most recently inputted direction for PacMan to move in
      */
     /*public void movePacman(Direction direction) {
@@ -373,15 +365,15 @@ public class BoardManager {
     /**
      * Inserts a creature to its starting point location
      */
-    public void sendCreatureToHome(Point2D creatureLocation, Point2D creatureVelocity, CellValue creatureCellValue) {
+    public void sendCreatureToHome(Creature creature, CellValue creatureCellValue) {
         for (int row = 0; row < this.rowCount; row++) {
             for (int column = 0; column < this.columnCount; column++) {
                 if (grid[row][column] == creatureCellValue) {
-                    creatureLocation = new Point2D(row, column);
+                    creature.setLocation(new Point2D(row, column));
                 }
             }
         }
-        creatureVelocity = new Point2D(-1, 0);
+        creature.setVelocity(new Point2D(-1, 0));
     }
 
     /**
@@ -403,7 +395,7 @@ public class BoardManager {
             dotCount--;
             score += 50;
             ghostEatingMode = true;
-            Controller.setGhostEatingModeCounter();
+            BoardController.setGhostEatingModeCounter();
         }
         //send ghost back to ghosthome if PacMan is on a ghost in ghost-eating mode
         if (ghostEatingMode) {
@@ -479,18 +471,11 @@ public class BoardManager {
         }
     }
 
-    /*public static boolean isGhostEatingMode() {
-        return ghostEatingMode;
-    }
-
-    public static void setGhostEatingMode(boolean ghostEatingModeBool) {
-        ghostEatingMode = ghostEatingModeBool;
-    }
 
     public static boolean isYouWon() {
         return youWon;
     }
-*/
+
 
 
     /**

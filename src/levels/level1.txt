@@ -12,13 +12,9 @@ G G G G R G G G G G G G G G R G G G G
 T G G G R G G G G G G G G G R G G G T
 G G G G R G G G G G G G G G R G G G G
 T G G G R G G G G G G G G G R G G G T
-G G G G R G G G G G G G G G R G G G G
-T G G G R R G G G G G G G R R G G G T
-E E E E B B E E E E E E E B B E E E E
-W W W W B B W W W W W W W B B W W W W
-W W W W B B W W W W W W W B B W W W W
-T G G G R R G G G G G G G R R G G G T
-G G G G R G G G G G G G G G R G G G G
+E E E E B E E E E E E E E E B E E E E
+W W W W B W W W W W W W W W B W W W W
+W W W W B W W W W W W W W W B W W W W
 T G G G R G G G G G G G G G R G G G T
 G G G G R G G G G G G G G G R G G G G
 T G G G R G G G G G G G G G R G G G T

@@ -1,7 +1,7 @@
 <?import ClashRoyal.BoardGame?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane fx:controller="ClashRoyal.Controller" style="-fx-background-color: green;" xmlns:fx="http://javafx.com/fxml">
+<BorderPane fx:controller="ClashRoyal.BoardController" style="-fx-background-color: green;" xmlns:fx="http://javafx.com/fxml">
     <top>
         <BorderPane prefHeight="25" style="-fx-background-color: #0B5091; -fx-padding: 10px, 5px, 10px, 5px" >
             <left><Label fx:id="scoreLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></left>
@@ -11,6 +11,6 @@
     </top>
 
     <center>
-        <BoardGame fx:id="boardGame" rowCount="36" columnCount="19" />
+        <BoardGame fx:id="boardGame" rowCount="32" columnCount="19" />
     </center>
 </BorderPane>

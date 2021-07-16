@@ -15,7 +15,7 @@ public class Main extends Application {
         loader.load();
         Parent root = loader.getRoot();
         primaryStage.setTitle("Clash Royal");
-        Controller controller = loader.getController();
+        BoardController controller = loader.getController();
         root.setOnKeyPressed(controller);
         System.out.println(controller.getBoardHeight());
         double sceneWidth = controller.getBoardWidth() + 20.0;
