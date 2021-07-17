@@ -1,0 +1,12 @@
+.bodybg{
+ -fx-background-image: url('information/media/woods.jpg');
+ -fx-background-size: 100% 100%;
+}
+.bodybg1{
+ -fx-background-image: url('information/media/bb.png');
+ -fx-background-size: 100% 100%;
+}
+.bodybg2{
+ -fx-background-image: url('information/media/w3.png');
+ -fx-background-size: 100% 100%;
+}
