@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import menu.BoardGame?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.BoardController">
+    <top>
+        <BorderPane prefHeight="25" style="-fx-background-color: #0B5091; -fx-padding: 10px, 5px, 10px, 5px">
+            <left><Label fx:id="scoreLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></left>
+            <center><Label fx:id="gameOverLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></center>
+            <right><Label fx:id="levelLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></right>
+        </BorderPane>
+    </top>
+    <center>
+        <BoardGame fx:id="boardGame" rowCount="32" columnCount="19" />
+    </center>
+   <left>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <ListView fx:id="cards" prefHeight="74.0" prefWidth="85.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </left>
+    
+</BorderPane>
