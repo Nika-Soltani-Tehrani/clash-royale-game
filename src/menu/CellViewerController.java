@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 
@@ -13,6 +14,8 @@ public class CellViewerController extends ListCell<Card> {
 
     @FXML
     private VBox box;
+    @FXML
+    private HBox imgBox;
 
     @FXML
     private Label label;
