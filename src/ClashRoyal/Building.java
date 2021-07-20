@@ -1,5 +1,7 @@
 package ClashRoyal;
 
+import javafx.geometry.Point2D;
+
 public abstract class Building extends Creature{
 
     protected int HP;
@@ -7,10 +9,40 @@ public abstract class Building extends Creature{
     protected double hitSpeed;
     protected int lifeTime;
     protected double range;
+    protected boolean isAlive = true;
+
+    public Building(String color, Point2D location,BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
+    }
 
 
+    public abstract void action(BoardManager boardManager);
 
-    public abstract void action();
+    public void loseHP(int damage)
+    {
+        this.HP = this.HP - damage;
+        if(this.HP == 0)
+            isAlive = false;
+    }
+
+    public void gainPower(int gain)
+    {
+        this.damage = this.damage + gain;
+    }
+
+    public void gainHitSpeed(int gain)
+    {
+        this.hitSpeed = this.hitSpeed + gain;
+    }
+
+
+    public boolean isAlive() {
+        return (isAlive) || lifeTime > 0;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
 
     public int getHP() {
         return HP;
@@ -53,4 +85,5 @@ public abstract class Building extends Creature{
     public void setRange(double range) {
         this.range = range;
     }
+
 }

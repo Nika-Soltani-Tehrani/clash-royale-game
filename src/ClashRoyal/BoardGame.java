@@ -11,16 +11,32 @@ public class BoardGame extends Group {
     private int rowCount;
     private int columnCount;
     private ImageView[][] cellViews;
-    private Image pacmanRightImage;
-    private Image pacmanUpImage;
-    private Image pacmanDownImage;
-    private Image pacmanLeftImage;
-    private Image ghost1Image;
-    private Image ghost2Image;
-    private Image blueGhostImage;
-    private Image wallImage;
-    private Image bigDotImage;
-    private Image smallDotImage;
+    private Image bArcherImage;
+    private Image bArrowImage;
+    private Image bBabyDragonImage;
+    private Image bBarbarianImage;
+    private Image bCannonImage;
+    private Image bFireballImage;
+    private Image bGiantImage;
+    private Image bInfernoTowerImage;
+    private Image bMiniPekkaImage;
+    private Image bRageImage;
+    private Image bValkyarieImage;
+    private Image bWizardImage;
+
+    private Image rArcherImage;
+    private Image rArrowImage;
+    private Image rBabyDragonImage;
+    private Image rBarbarianImage;
+    private Image rCannonImage;
+    private Image rFireballImage;
+    private Image rGiantImage;
+    private Image rInfernoTowerImage;
+    private Image rMiniPekkaImage;
+    private Image rRageImage;
+    private Image rValkyarieImage;
+    private Image rWizardImage;
+
 
     private Image edgeImage;
     private Image treeImage;
@@ -34,22 +50,36 @@ public class BoardGame extends Group {
     private Image grassImage;
 
 
+
     /**
      * Initializes the values of the image instance variables from files
      */
     public BoardGame() {
-        this.pacmanRightImage = new Image(getClass().getResourceAsStream("/pic/pacmanRight.gif"));
-        this.pacmanUpImage = new Image(getClass().getResourceAsStream("/pic/pacmanUp.gif"));
-        this.pacmanDownImage = new Image(getClass().getResourceAsStream("/pic/pacmanDown.gif"));
-        this.pacmanLeftImage = new Image(getClass().getResourceAsStream("/pic/pacmanLeft.gif"));
-        this.ghost1Image = new Image(getClass().getResourceAsStream("/pic/redghost.gif"));
-        this.ghost2Image = new Image(getClass().getResourceAsStream("/pic/ghost2.gif"));
-        this.blueGhostImage = new Image(getClass().getResourceAsStream("/pic/blueghost.gif"));
-        this.wallImage = new Image(getClass().getResourceAsStream("/pic/wall.png"));
-        this.bigDotImage = new Image(getClass().getResourceAsStream("/pic/whitedot.png"));
-        this.smallDotImage = new Image(getClass().getResourceAsStream("/pic/smalldot.png"));
+        this.bArcherImage = new Image(getClass().getResourceAsStream("/pic/bArcherImage.gif"));
+        this.bArrowImage = new Image(getClass().getResourceAsStream("/pic/bArrowImage.gif"));
+        this.bBabyDragonImage = new Image(getClass().getResourceAsStream("/pic/bBabyDragonImage.gif"));
+        this.bBarbarianImage = new Image(getClass().getResourceAsStream("/pic/bBarbarianImage.gif"));
+        this.bCannonImage = new Image(getClass().getResourceAsStream("/pic/bCannonImage.gif"));
+        this.bFireballImage = new Image(getClass().getResourceAsStream("/pic/bFireballImage.gif"));
+        this.bGiantImage = new Image(getClass().getResourceAsStream("/pic/bGiantImage.gif"));
+        this.bInfernoTowerImage = new Image(getClass().getResourceAsStream("/pic/bInfernoTowerImage.png"));
+        this.bMiniPekkaImage = new Image(getClass().getResourceAsStream("/pic/bMiniPekkaImage.png"));
+        this.bRageImage = new Image(getClass().getResourceAsStream("/pic/bRageImage.png"));
+        this.bValkyarieImage = new Image(getClass().getResourceAsStream("/pic/bValkyarieImage.png"));
+        this.bWizardImage = new Image(getClass().getResourceAsStream("/pic/bWizardImage.png"));
 
-
+        this.rArcherImage = new Image(getClass().getResourceAsStream("/pic/rArcherImage.gif"));
+        this.rArrowImage = new Image(getClass().getResourceAsStream("/pic/rArrowImage.gif"));
+        this.rBabyDragonImage = new Image(getClass().getResourceAsStream("/pic/rBabyDragonImage.gif"));
+        this.rBarbarianImage = new Image(getClass().getResourceAsStream("/pic/rBarbarianImage.gif"));
+        this.rCannonImage = new Image(getClass().getResourceAsStream("/pic/rCannonImage.gif"));
+        this.rFireballImage = new Image(getClass().getResourceAsStream("/pic/rFireballImage.gif"));
+        this.rGiantImage = new Image(getClass().getResourceAsStream("/pic/rGiantImage.gif"));
+        this.rInfernoTowerImage = new Image(getClass().getResourceAsStream("/pic/rInfernoTowerImage.png"));
+        this.rMiniPekkaImage = new Image(getClass().getResourceAsStream("/pic/rMiniPekkaImage.png"));
+        this.rRageImage = new Image(getClass().getResourceAsStream("/pic/rRageImage.png"));
+        this.rValkyarieImage = new Image(getClass().getResourceAsStream("/pic/rValkyarieImage.png"));
+        this.rWizardImage = new Image(getClass().getResourceAsStream("/pic/rWizardImage.png"));
 
         this.edgeImage = new Image(getClass().getResourceAsStream("/pic/EDGE.png"));
         this.treeImage = new Image(getClass().getResourceAsStream("/pic/TREE.png"));
@@ -120,6 +150,72 @@ public class BoardGame extends Group {
                 }
                 else if (value == CellValue.TREE) {
                     cellViews[row][column].setImage(treeImage);
+                }
+                else if (value == CellValue.bARCHER) {
+                    cellViews[row][column].setImage(bArcherImage);
+                }
+                else if (value == CellValue.bARROW) {
+                    cellViews[row][column].setImage(bArrowImage);
+                }
+                else if (value == CellValue.bBABYDRAGON) {
+                    cellViews[row][column].setImage(bBabyDragonImage);
+                }
+                else if (value == CellValue.bBARBARIAN) {
+                    cellViews[row][column].setImage(bBarbarianImage);
+                }
+                else if (value == CellValue.bCANNON) {
+                    cellViews[row][column].setImage(bCannonImage);
+                }
+                else if (value == CellValue.bFIREBALL) {
+                    cellViews[row][column].setImage(bFireballImage);
+                }
+                else if (value == CellValue.bGIANT) {
+                    cellViews[row][column].setImage(bGiantImage);
+                }
+                else if (value == CellValue.bINFERNOTOWER) {
+                    cellViews[row][column].setImage(bMiniPekkaImage);
+                }
+                else if (value == CellValue.bRAGE) {
+                    cellViews[row][column].setImage(bRageImage);
+                }
+                else if (value == CellValue.bVALKYARIE) {
+                    cellViews[row][column].setImage(bValkyarieImage);
+                }
+                else if (value == CellValue.bWIZARD) {
+                    cellViews[row][column].setImage(bWizardImage);
+                }
+                else if (value == CellValue.rARCHER) {
+                    cellViews[row][column].setImage(rArcherImage);
+                }
+                else if (value == CellValue.rARROW) {
+                    cellViews[row][column].setImage(rArrowImage);
+                }
+                else if (value == CellValue.rBABYDRAGON) {
+                    cellViews[row][column].setImage(rBabyDragonImage);
+                }
+                else if (value == CellValue.rBARBARIAN) {
+                    cellViews[row][column].setImage(rBarbarianImage);
+                }
+                else if (value == CellValue.rCANNON) {
+                    cellViews[row][column].setImage(rCannonImage);
+                }
+                else if (value == CellValue.rFIREBALL) {
+                    cellViews[row][column].setImage(rFireballImage);
+                }
+                else if (value == CellValue.rGIANT) {
+                    cellViews[row][column].setImage(rGiantImage);
+                }
+                else if (value == CellValue.rINFERNOTOWER) {
+                    cellViews[row][column].setImage(rMiniPekkaImage);
+                }
+                else if (value == CellValue.rRAGE) {
+                    cellViews[row][column].setImage(rRageImage);
+                }
+                else if (value == CellValue.rVALKYARIE) {
+                    cellViews[row][column].setImage(rValkyarieImage);
+                }
+                else if (value == CellValue.rWIZARD) {
+                    cellViews[row][column].setImage(rWizardImage);
                 }
                 else {
                     cellViews[row][column].setImage(null);

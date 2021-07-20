@@ -3,11 +3,19 @@ package ClashRoyal;
 import javafx.geometry.Point2D;
 import java.io.*;
 import java.util.*;
+import java.util.Iterator;
 
 public class BoardManager {
 
+    //ArrayList(object of creatures)
     public enum CellValue {
-        GRASS, WATER, ROAD, BLUEQUEEN, BLUEKING, REDQUEEN, REDKING, BRIDGE, TREE, EDGE,
+        GRASS, WATER, ROAD, BLUEQUEEN, BLUEKING, REDQUEEN, REDKING, BRIDGE, TREE, EDGE,DESTROY,
+        //red creatures
+        rARCHER,rARROW,rBABYDRAGON,rBARBARIAN,rCANNON,rFIREBALL,rGIANT,rINFERNOTOWER,rMINIPEKKA,
+        rRAGE,rVALKYARIE,rWIZARD,
+        //blue creatures
+        bARCHER,bARROW,bBABYDRAGON,bBARBARIAN,bCANNON,bFIREBALL,bGIANT,bINFERNOTOWER,bMINIPEKKA,
+        bRAGE,bVALKYARIE,bWIZARD
     }
 
     public enum Direction {
@@ -17,20 +25,24 @@ public class BoardManager {
     private int rowCount;
     private int columnCount;
     private CellValue[][] grid;
-    private int score;
+    private int XP;
     private int level;
+    public int rPrincess = 2;
+    public int bPrincess = 2;
     private static boolean gameOver;
     private static boolean youWon;
     private static boolean ghostEatingMode;
-    private Point2D redQueenLocation;
-    private Point2D pacmanVelocity;
-    private Point2D redKingLocation;
-    private Point2D ghost1Velocity;
-    private Point2D blueQueenLocation;
-    private Point2D blueKingLocation;
-    private Point2D ghost2Velocity;
     private static Direction lastDirection;
     private static Direction currentDirection;
+    private KingTower blueKingTower = new KingTower("blue",new Point2D(28,9),0,CellValue.BLUEKING);
+    private PrincessTower blue1PrincessTower = new PrincessTower("blue",new Point2D(27,4),0,CellValue.BLUEQUEEN);
+    private PrincessTower blue2PrincessTower = new PrincessTower("blue",new Point2D(27,14),1,CellValue.BLUEQUEEN);
+    private KingTower redKingTower = new KingTower("red",new Point2D(3,9),0,CellValue.REDKING);
+    private PrincessTower red1PrincessTower = new PrincessTower("red",new Point2D(4,4),0,CellValue.REDQUEEN);
+    private PrincessTower red2PrincessTower = new PrincessTower("red",new Point2D(4,14),1,CellValue.REDQUEEN);
+    private ArrayList<Creature> creatures = new ArrayList<>();
+    private ArrayList<Creature> enemies = new ArrayList<>();
+    private ArrayList<Creature> friends = new ArrayList<>();
 
     /**
      * Start a new game upon initialization
@@ -91,23 +103,17 @@ public class BoardManager {
                         break;
                     case "BQ":
                         thisValue = CellValue.BLUEQUEEN;
-                        blueQueenRow = row;
-                        blueQueenColumn = column;
                         break;
                     case "BK":
                         thisValue = CellValue.BLUEKING;
-                        blueKingRow = row;
-                        blueKingColumn = column;
+
                         break;
                     case "RQ":
                         thisValue = CellValue.REDQUEEN;
-                        redQueenRow = row;
-                        redQueenColumn = column;
+
                         break;
                     case "RK":
                         thisValue = CellValue.REDKING;
-                        redKingRow = row;
-                        redKingColumn = column;
                         break;
                     case "B":
                         thisValue = CellValue.BRIDGE;
@@ -126,10 +132,6 @@ public class BoardManager {
             }
             row++;
         }
-        redKingLocation = new Point2D(redKingRow, redKingColumn);
-        redQueenLocation = new Point2D(redQueenRow,redQueenColumn);
-        blueKingLocation = new Point2D(blueKingRow,blueKingColumn);
-        blueQueenLocation = new Point2D(blueQueenRow,blueQueenColumn);
         //pacmanVelocity = new Point2D(0,0);
         //ghost1Velocity = new Point2D(-1, 0);
         //ghost2Velocity = new Point2D(-1, 0);
@@ -144,8 +146,9 @@ public class BoardManager {
         youWon = false;
         rowCount = 0;
         columnCount = 0;
-        score = 0;
+        XP = 0;//
         level = 1;
+        makeEnemies();
         initializeLevel(BoardController.getLevelFile());
     }
 
@@ -506,14 +509,463 @@ public class BoardManager {
     }
 
     public int getScore() {
-        return score;
+        return XP;
     }
 
+    public Creature enemyFinder(CellValue cellValue,String color)
+    {
+        if(color.equals("red")){
+            if (cellValue == CellValue.bARCHER) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("archer"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bARROW) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("arrow"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bBABYDRAGON) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("babyDragon"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bBARBARIAN) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("barbarian"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bCANNON) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("cannon"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bFIREBALL) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("fireball"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bGIANT) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("giant"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bINFERNOTOWER) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("infernoTower"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bMINIPEKKA) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("miniPekka"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bRAGE) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("rage"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bVALKYARIE) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("valkyarie"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bWIZARD) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("wizard"))
+                        return creature;
+                }
+            }
+
+        }
+        else
+        {
+            if (cellValue == CellValue.rARCHER) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("archer"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rARROW) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("arrow"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rBABYDRAGON) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("babyDragon"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rBARBARIAN) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("barbarian"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rCANNON) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("cannon"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rFIREBALL) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("fireball"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rGIANT) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("giant"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rINFERNOTOWER) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("infernoTower"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rMINIPEKKA) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("miniPekka"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rRAGE) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("rage"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rVALKYARIE) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("valkyarie"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rWIZARD) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("wizard"))
+                        return creature;
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public Creature friendFinder(CellValue cellValue,String color)
+    {
+        if(color.equals("blue")){
+            if (cellValue == CellValue.bARCHER) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("archer"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bARROW) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("arrow"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bBABYDRAGON) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("babyDragon"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bBARBARIAN) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("barbarian"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bCANNON) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("cannon"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bFIREBALL) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("fireball"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bGIANT) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("giant"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bINFERNOTOWER) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("infernoTower"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bMINIPEKKA) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("miniPekka"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bRAGE) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("rage"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bVALKYARIE) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("valkyarie"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.bWIZARD) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("wizard"))
+                        return creature;
+                }
+            }
+
+        }
+        else
+        {
+            if (cellValue == CellValue.rARCHER) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("archer"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rARROW) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("arrow"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rBABYDRAGON) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("babyDragon"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rBARBARIAN) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("barbarian"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rCANNON) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("cannon"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rFIREBALL) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("fireball"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rGIANT) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("giant"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rINFERNOTOWER) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("infernoTower"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rMINIPEKKA) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("miniPekka"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rRAGE) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("rage"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rVALKYARIE) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("valkyarie"))
+                        return creature;
+                }
+            }
+            if (cellValue == CellValue.rWIZARD) {
+                for (Creature creature : creatures) {
+                    if (creature.getName().equals("wizard"))
+                        return creature;
+                }
+            }
+        }
+        return null;
+    }
 
     public int getLevel() {
         return level;
     }
 
+
+
+    public CellValue[][] getGrid() {
+        return grid;
+    }
+
+    public void setGrid(CellValue[][] grid) {
+        this.grid = grid;
+    }
+
+    public void makeEnemies()
+    {
+        int count;
+
+        Archer archer = new Archer("red",new Point2D(3,8),-1,CellValue.rARCHER);
+        count = archer.getCount();
+        for (int i = 0; i < count; i++)
+        {
+            archer = new Archer("red",new Point2D(3 + i,8),i,CellValue.rARCHER);
+            enemies.add(archer);
+            creatures.add(archer);
+        }
+        Arrow arrow = new Arrow("red",new Point2D(3,8),CellValue.rARROW);
+        enemies.add(arrow);
+        creatures.add(arrow);
+        BabyDragon babyDragon = new BabyDragon("red",new Point2D(3,8),-1,CellValue.rARROW);
+        count = babyDragon.getCount();
+        for (int i = 0; i < count; i++)
+        {
+            babyDragon = new BabyDragon("red",new Point2D(3 + i,8),i,CellValue.rBABYDRAGON);
+            enemies.add(babyDragon);
+            creatures.add(babyDragon);
+        }
+        Barbarian barbarian = new Barbarian("red",new Point2D(3,8),-1,CellValue.rBABYDRAGON);
+        count = barbarian.getCount();
+        for (int i = 0; i < count; i++)
+        {
+            barbarian = new Barbarian("red",new Point2D(3 + i,8),i,CellValue.rBARBARIAN);
+            enemies.add(barbarian);
+            creatures.add(barbarian);
+        }
+        Cannon cannon = new Cannon("red",new Point2D(3,8),CellValue.rBARBARIAN);
+        enemies.add(cannon);
+        creatures.add(cannon);
+        Fireball fireball = new Fireball("red",new Point2D(3,8),CellValue.rFIREBALL);
+        enemies.add(fireball);
+        creatures.add(fireball);
+        Giant giant = new Giant("red",new Point2D(3,8),-1,CellValue.rFIREBALL);
+        count = giant.getCount();
+        for (int i = 0; i < count; i++)
+        {
+            giant = new Giant("red",new Point2D(3 + i,8),i,CellValue.rGIANT);
+            enemies.add(giant);
+            creatures.add(giant);
+        }
+        InfernoTower infernoTower = new InfernoTower("red",new Point2D(3,8),CellValue.rGIANT);
+        enemies.add(infernoTower);
+        creatures.add(infernoTower);
+        MiniPekka miniPekka = new MiniPekka("red",new Point2D(3,8),-1,CellValue.rMINIPEKKA);
+        count = miniPekka.getCount();
+        for (int i = 0; i < count; i++)
+        {
+            miniPekka = new MiniPekka("red",new Point2D(3 + i,8),i,CellValue.rMINIPEKKA);
+            enemies.add(miniPekka);
+            creatures.add(miniPekka);
+        }
+        Rage rage = new Rage("red",new Point2D(3,8),CellValue.rRAGE);
+        enemies.add(rage);
+        creatures.add(rage);
+        Valkyarie valkyarie = new Valkyarie("red",new Point2D(3,8),-1,CellValue.rVALKYARIE);
+        count = valkyarie.getCount();
+        for (int i = 0; i < count; i++)
+        {
+            valkyarie = new Valkyarie("red",new Point2D(3 + i,8),i,CellValue.rVALKYARIE);
+            enemies.add(valkyarie);
+            creatures.add(valkyarie);
+        }
+        Wizard wizard = new Wizard("red",new Point2D(3,8),-1,CellValue.rWIZARD);
+        count = wizard.getCount();
+        for (int i = 0; i < count; i++)
+        {
+            wizard = new Wizard("red",new Point2D(3 + i,8),i,CellValue.rWIZARD);
+            enemies.add(wizard);
+            creatures.add(wizard);
+        }
+    }
+
+    public void aliveCreatures()
+    {
+        ArrayList<Creature> deadCreatures = new ArrayList<>();
+        Iterator<Creature> it = creatures.iterator();
+        while (it.hasNext())
+        {
+            Creature creature = it.next();
+            if((creature instanceof Troop) )
+            {
+                if(((Troop) creature).getHP() == 0)
+                {
+                    deadCreatures.add(creature);
+                    creatures.remove(creature);
+                    if (creature.getColor().equals("red"))
+                    {
+                        enemies.remove(creature);
+                    }
+                    if (creature.getColor().equals("blue"))
+                    {
+                        friends.remove(creature);
+                    }
+                    setCellValue((int)creature.getLocation().getX(),(int)creature.getLocation().getY(),CellValue.ROAD);
+                }
+            }
+            if((creature instanceof Building) )
+            {
+                if(((Building) creature).isAlive())
+                {
+                    if(((Troop) creature).getHP() == 0)
+                    {
+                        deadCreatures.add(creature);
+                        creatures.remove(creature);
+                        if (creature.getColor().equals("red"))
+                        {
+                            enemies.remove(creature);
+                        }
+                        if (creature.getColor().equals("blue"))
+                        {
+                            friends.remove(creature);
+                        }
+                    }
+                }
+                setCellValue((int)creature.getLocation().getX(),(int)creature.getLocation().getY(),CellValue.GRASS);
+            }
+        }
+    }
+
+    public void setCellValue(int row , int column, CellValue cellValue){
+        assert row >= 0 && row < this.grid.length && column >= 0 && column < this.grid[0].length;
+        this.grid[row][column] = cellValue;
+        //System.out.println(grid[row][column].toString());
+    }
 
 
 }
