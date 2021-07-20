@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import ClashRoyal.BoardGame?>
+<?import menu.BoardGame?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 
-<BorderPane prefHeight="170.0" prefWidth="163.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClashRoyal.BoardController">
+<BorderPane style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.BoardController">
     <top>
         <BorderPane prefHeight="25" style="-fx-background-color: #0B5091; -fx-padding: 10px, 5px, 10px, 5px">
             <left><Label fx:id="scoreLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></left>
@@ -16,12 +15,12 @@
     <center>
         <BoardGame fx:id="boardGame" rowCount="32" columnCount="19" />
     </center>
-   <bottom>
-      <HBox prefHeight="46.0" prefWidth="163.0" BorderPane.alignment="CENTER">
-         <children>
-            <ListView prefHeight="200.0" prefWidth="200.0" />
-         </children>
-      </HBox>
-   </bottom>
+   <left>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <ListView fx:id="cards" prefHeight="74.0" prefWidth="85.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </left>
     
 </BorderPane>

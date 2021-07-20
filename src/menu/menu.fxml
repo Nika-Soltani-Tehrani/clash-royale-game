@@ -41,7 +41,7 @@
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="bodybg1" stylesheets="@../buttons.css" text="Start" />
+                <Button mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="200.0" styleClass="bodybg1" stylesheets="@../buttons.css" text="Start" />
             </children>
             <VBox.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

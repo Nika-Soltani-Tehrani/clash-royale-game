@@ -1,14 +1,17 @@
 package menu;
 
+import javafx.scene.image.Image;
+
 // Book.java
 public class Card {
    private String title; // book title
    private String thumbImage; // source of book cover's thumbnail image
+   private Image boardImage;
 
-
-   public Card(String title, String thumbImage) {
+   public Card(String title, String thumbImage, String boardName) {
       this.title = title;
       this.thumbImage = thumbImage;
+      this.boardImage = new Image(getClass().getResourceAsStream("/images/board/"+boardName));
 
    }
    
@@ -20,7 +23,10 @@ public class Card {
 
    public void setThumbImage(String thumbImage) {this.thumbImage = thumbImage;}
 
-   
+   public Image getBoardImage(){
+      return this.boardImage;
+   }
+
    @Override
    public String toString() {return getTitle();}
 }

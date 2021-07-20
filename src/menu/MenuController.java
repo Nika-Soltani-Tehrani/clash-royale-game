@@ -66,8 +66,15 @@ public class MenuController {
     }
 
     @FXML
-    public void startGame(ActionEvent event){
-
+    public void startGame(ActionEvent event) throws Exception{
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("ClashRoyal.fxml"));
+        primaryStage.setTitle("ClashRoyal");
+        primaryStage.setScene(new Scene(root, 600, 750));
+        primaryStage.show();
     }
 
     public void exit(ActionEvent event){

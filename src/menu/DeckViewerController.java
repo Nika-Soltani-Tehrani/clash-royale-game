@@ -25,24 +25,24 @@ public class DeckViewerController {
    // stores the list of Book Objects
    private final ObservableList<Card> cards =
       FXCollections.observableArrayList();
-   private final static ObservableList<Card> newCards =
+   public final static ObservableList<Card> newCards =
            FXCollections.observableArrayList();
    public void initialize() {
       // populate the ObservableList<Book>
       cards.add(new Card("archers",
-         "/images/small/archers.png"));
+         "/images/small/archers.png","archers.png"));
       cards.add(new Card("arrows",
-         "/images/small/arrows.png"));
+         "/images/small/arrows.png","arrows.png"));
       cards.add(new Card("baby dragon",
-         "/images/small/baby-dragon.png"));
+         "/images/small/baby-dragon.png","baby-dragon.png"));
       cards.add(new Card("balloon",
-         "/images/small/balloon.png"));
+         "/images/small/balloon.png","balloon.png"));
       cards.add(new Card("bandit",
-         "/images/small/bandit.png"));
+         "/images/small/bandit.png","bandit.png"));
       cards.add(new Card("barbarian-barrel",
-         "/images/small/barbarian-barrel.png"));
+         "/images/small/barbarian-barrel.png","barbarian-barrel.png"));
       cards.add(new Card("bats",
-         "/images/small/bats.png"));
+         "/images/small/bats.png","bats.png"));
       booksListView.setItems(cards); // bind booksListView to books
       // when ListView selection changes, show large cover in ImageView
       if(newCards!=null){
