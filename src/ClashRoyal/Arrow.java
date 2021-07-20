@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public class Arrow extends Spell{
 
-    public Arrow(String color, Point2D location) {
-        super(color,location);
+    public Arrow(String color, Point2D location,BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
         this.cost = 3;
         this.range = 4;
         this.name = "arrow";

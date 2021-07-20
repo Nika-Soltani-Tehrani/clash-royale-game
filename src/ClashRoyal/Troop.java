@@ -17,8 +17,8 @@ public abstract class Troop extends Creature{
         SLOW, MEDIUM, FAST
     }
 
-    public Troop(String color, Point2D location,int id) {
-        super(color,location);
+    public Troop(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
         this.id = id;
     }
 

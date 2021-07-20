@@ -6,8 +6,8 @@ public abstract class Spell extends Creature{
 
     protected int areaDamage;
 
-    public Spell(String color, Point2D location) {
-        super(color,location);
+    public Spell(String color, Point2D location,BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
     }
 
     public abstract void action(BoardManager boardManager);

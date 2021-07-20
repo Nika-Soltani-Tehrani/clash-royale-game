@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public class PrincessTower extends Tower{
 
-    public PrincessTower(String color,Point2D location,int id) {
-        super(color,location,id);
+    public PrincessTower(String color,Point2D location,int id,BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
         this.range = 7.5;
         this.hitSpeed = 0.8;
         this.location = location;

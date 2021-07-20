@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public class Wizard extends Troop{
 
-    public Wizard(String color, Point2D location,int id) {
-        super(color,location,id);
+    public Wizard(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
         this.name = "wizard";
         this.cost = 5;
         this.count = 1;

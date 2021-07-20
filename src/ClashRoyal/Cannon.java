@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public class Cannon extends Building{
 
-    public Cannon(String color, Point2D location) {
-        super(color,location);
+    public Cannon(String color, Point2D location,BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
         this.cost = 6;
         this.lifeTime = 30;
         this.range = 5.5;

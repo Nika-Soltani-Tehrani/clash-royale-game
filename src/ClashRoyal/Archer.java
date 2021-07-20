@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public class Archer extends Troop{
 
-    public Archer(String color, Point2D location,int id) {
-        super(color,location,id);
+    public Archer(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
         this.cost = 3;
         this.count = 2;
         this.range = 5; //only can damage the person in front of him

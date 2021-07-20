@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public class Giant extends Troop{
 
-    public Giant(String color, Point2D location,int id) {
-        super(color,location,id);
+    public Giant(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
         this.cost = 5;
         this.count = 1;
         this.range = 1; //only can damage the person in front of him

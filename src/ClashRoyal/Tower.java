@@ -12,11 +12,13 @@ public abstract class Tower {
     protected double hitSpeed;
     protected Point2D location;
     protected boolean isAlive = true;
+    protected BoardManager.CellValue cellValue;
 
-    public Tower(String color, Point2D location,int id) {
+    public Tower(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
         this.id = id;
         this.color = color;
         this.location = location;
+        this.cellValue = cellValue;
     }
 
     public abstract void action(BoardManager boardManager);

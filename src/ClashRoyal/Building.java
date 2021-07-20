@@ -11,8 +11,8 @@ public abstract class Building extends Creature{
     protected double range;
     protected boolean isAlive = true;
 
-    public Building(String color, Point2D location) {
-        super(color,location);
+    public Building(String color, Point2D location,BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
     }
 
 

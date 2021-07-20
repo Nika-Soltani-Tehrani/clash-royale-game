@@ -5,8 +5,8 @@ import javafx.geometry.Point2D;
 
 public class Rage extends Spell{
 
-    public Rage(String color, Point2D location) {
-        super(color,location);
+    public Rage(String color, Point2D location,BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
         this.cost = 3;
         this.range = 5;
         this.name = "rage";

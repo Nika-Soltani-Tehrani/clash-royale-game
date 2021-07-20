@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public class Valkyarie extends Troop{
 
-    public Valkyarie(String color, Point2D location,int id) {
-        super(color,location,id);
+    public Valkyarie(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
         this.cost = 4;
         this.count = 1;
         this.range = 1; //only can damage the person in front of him

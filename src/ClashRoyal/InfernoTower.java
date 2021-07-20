@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public class InfernoTower extends Building{
 
-    public InfernoTower(String color, Point2D location) {
-        super(color,location);
+    public InfernoTower(String color, Point2D location,BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
         this.cost = 5;
         this.lifeTime = 40;
         this.range = 6;

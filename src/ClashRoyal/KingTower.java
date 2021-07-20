@@ -6,8 +6,8 @@ public class KingTower extends Tower{
 
     private boolean isActive = false;
 
-    public KingTower(String color,Point2D location,int id) {
-        super(color,location,id);
+    public KingTower(String color,Point2D location,int id,BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
         this.range = 7;
         this.hitSpeed = 1;
         this.location = location;

@@ -5,8 +5,8 @@ import javafx.geometry.Point2D;
 public class MiniPekka extends Troop{
 
 
-    public MiniPekka(String color, Point2D location,int id) {
-        super(color,location,id);
+    public MiniPekka(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
         this.cost = 4;
         this.count = 1;
         this.range = 1; //only can damage the person in front of him

@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public class Fireball extends Spell{
 
-    public Fireball(String color, Point2D location) {
-        super(color,location);
+    public Fireball(String color, Point2D location,BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
         this.cost = 4;
         this.range = 2.5;
         this.name = "fireball";
