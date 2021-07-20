@@ -7,11 +7,13 @@ public class Card {
    private String title; // book title
    private String thumbImage; // source of book cover's thumbnail image
    private Image boardImage;
+   private int cost;
 
-   public Card(String title, String thumbImage, String boardName) {
+   public Card(String title, String thumbImage, String boardName, int cost) {
       this.title = title;
       this.thumbImage = thumbImage;
       this.boardImage = new Image(getClass().getResourceAsStream("/images/board/"+boardName));
+      this.cost = cost;
 
    }
    
@@ -29,6 +31,10 @@ public class Card {
 
    @Override
    public String toString() {return getTitle();}
+
+   public int getCost() {
+      return cost;
+   }
 }
 
 

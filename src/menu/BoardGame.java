@@ -32,6 +32,7 @@ public class BoardGame extends Group {
     private Image waterImage;
     private Image roadImage;
     private Image grassImage;
+    private Image element;
 
 
     /**
@@ -61,6 +62,7 @@ public class BoardGame extends Group {
         this.roadImage = new Image(getClass().getResourceAsStream("/pic/ROAD.png"));
         this.waterImage = new Image(getClass().getResourceAsStream("/pic/WATER.png"));
         this.grassImage = new Image(getClass().getResourceAsStream("/pic/GRASS.png"));
+        this.element = new Image(getClass().getResourceAsStream("/images/board/archers.png"));
     }
 
     /**
@@ -121,8 +123,8 @@ public class BoardGame extends Group {
                 else if (value == BoardManager.CellValue.TREE) {
                     cellViews[row][column].setImage(treeImage);
                 }
-                else {
-                    cellViews[row][column].setImage(null);
+                else if(value == BoardManager.CellValue.ELEMENT) {
+                    cellViews[row][column].setImage(element);
                 }
                 //check which direction PacMan is going in and display the corresponding image
                 /*if (row == model.getPacmanLocation().getX() && column == model.getPacmanLocation().getY()) {
