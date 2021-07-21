@@ -1,8 +1,18 @@
 package ClashRoyal;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
+import javafx.util.Duration;
 
 public class InfernoTower extends Building{
+
+    private static final int STARTTIME = 0;
+    private Timeline timeline;
+    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
     public InfernoTower(String color, Point2D location,BoardManager.CellValue cellValue) {
         super(color,location,cellValue);
@@ -11,6 +21,17 @@ public class InfernoTower extends Building{
         this.range = 6;
         this.hitSpeed = 0.4;
         this.name = "infernoTower";
+        // TODO
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> updateTimer()));
+        timeline.setCycleCount(Animation.INDEFINITE); // repeat over and over again
+        timeSeconds.set(STARTTIME);
+        timeline.play();
+
+    }
+    private void updateTimer() {
+        // increment seconds
+        int lifeTimeTimer = timeSeconds.get();
+        timeSeconds.set(lifeTimeTimer + 1);
     }
 
     @Override
@@ -116,6 +137,10 @@ public class InfernoTower extends Building{
                     }*/
                 }
             }
+        }
+        if (timeSeconds.intValue() == lifeTime)
+        {
+            isAlive = false;
         }
     }
 

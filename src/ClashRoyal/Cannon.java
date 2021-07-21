@@ -1,8 +1,17 @@
 package ClashRoyal;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
+import javafx.util.Duration;
 
 public class Cannon extends Building{
+    private static final int STARTTIME = 0;
+    private Timeline timeline;
+    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
     public Cannon(String color, Point2D location,BoardManager.CellValue cellValue) {
         super(color,location,cellValue);
@@ -11,8 +20,18 @@ public class Cannon extends Building{
         this.range = 5.5;
         this.hitSpeed = 0.8;
         this.name = "cannon";
-    }
+        // TODO
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> updateTimer()));
+        timeline.setCycleCount(Animation.INDEFINITE); // repeat over and over again
+        timeSeconds.set(STARTTIME);
+        timeline.play();
 
+    }
+    private void updateTimer() {
+        // increment seconds
+        int lifeTimeTimer = timeSeconds.get();
+        timeSeconds.set(lifeTimeTimer + 1);
+    }
     @Override
     public void action(BoardManager boardManager)
     {
@@ -132,6 +151,10 @@ public class Cannon extends Building{
                     }*/
                 }
             }
+        }
+        if (timeSeconds.intValue() == lifeTime)
+        {
+            isAlive = false;
         }
     }
 }

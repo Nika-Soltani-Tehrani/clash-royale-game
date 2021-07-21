@@ -42,6 +42,7 @@ public class BoardManager {
     private PrincessTower red2PrincessTower = new PrincessTower("red",new Point2D(4,14),1,CellValue.REDQUEEN);
     private ArrayList<Creature> creatures = new ArrayList<>();
     private ArrayList<Creature> enemies = new ArrayList<>();
+    private ArrayList<Creature> aliveEnemies = new ArrayList<>();
     private ArrayList<Creature> friends = new ArrayList<>();
 
     /**
@@ -74,15 +75,6 @@ public class BoardManager {
 
         grid = new CellValue[rowCount][columnCount];
         int row = 0;
-
-        int blueKingRow = 0;
-        int blueKingColumn = 0;
-        int redKingRow = 0;
-        int redKingColumn = 0;
-        int blueQueenRow = 0;
-        int blueQueenColumn = 0;
-        int redQueenRow = 0;
-        int redQueenColumn = 0;
 
         while(sc.hasNextLine()){
             int column = 0;
@@ -132,9 +124,6 @@ public class BoardManager {
             }
             row++;
         }
-        //pacmanVelocity = new Point2D(0,0);
-        //ghost1Velocity = new Point2D(-1, 0);
-        //ghost2Velocity = new Point2D(-1, 0);
         currentDirection = Direction.NONE;
         lastDirection = Direction.NONE;
     }
@@ -149,6 +138,7 @@ public class BoardManager {
         XP = 0;//
         level = 1;
         makeEnemies();
+        initializeEnemies();
         initializeLevel(BoardController.getLevelFile());
     }
 
@@ -492,21 +482,6 @@ public class BoardManager {
         return this.grid[row][column];
     }
 
-    public static Direction getCurrentDirection() {
-        return currentDirection;
-    }
-
-    public void setCurrentDirection(Direction direction) {
-        currentDirection = direction;
-    }
-
-    public static Direction getLastDirection() {
-        return lastDirection;
-    }
-
-    public void setLastDirection(Direction direction) {
-        lastDirection = direction;
-    }
 
     public int getScore() {
         return XP;
@@ -833,84 +808,207 @@ public class BoardManager {
         return grid;
     }
 
-    public void setGrid(CellValue[][] grid) {
-        this.grid = grid;
+    public void makeFriends(String name,Point2D location)
+    {
+        int count;
+        int x = (int)location.getX();
+        int y = (int)location.getY();
+        if (name.equals("archer"))
+        {
+            Archer bArcher = new Archer("blue",new Point2D(x,y),-1,CellValue.bARCHER);
+            count = bArcher.getCount();
+            for (int i = 0; i < count; i++)
+            {
+                bArcher = new Archer("blue",new Point2D(x + i,y),i,CellValue.bARCHER);
+                friends.add(bArcher);
+                creatures.add(bArcher);
+            }
+            setCellValue(x,y,CellValue.bARCHER);
+        }
+        if (name.equals("arrow"))
+        {
+            Arrow bArrow = new Arrow("blue",new Point2D(x,y),CellValue.bARROW);
+            friends.add(bArrow);
+            creatures.add(bArrow);
+            setCellValue(x,y,CellValue.bARROW);
+        }
+        if (name.equals("babyDragon"))
+        {
+            BabyDragon bBabyDragon = new BabyDragon("blue",new Point2D(x,y),-1,CellValue.bBABYDRAGON);
+            count = bBabyDragon.getCount();
+            for (int i = 0; i < count; i++)
+            {
+                bBabyDragon = new BabyDragon("blue",new Point2D(x + i,y),i,CellValue.bBABYDRAGON);
+                friends.add(bBabyDragon);
+                creatures.add(bBabyDragon);
+            }
+            setCellValue(x,y,CellValue.bBABYDRAGON);
+        }
+        if (name.equals("barbarian"))
+        {
+            Barbarian bBarbarian = new Barbarian("blue",new Point2D(x,y),-1,CellValue.bBARBARIAN);
+            count = bBarbarian.getCount();
+            for (int i = 0; i < count; i++)
+            {
+                bBarbarian = new Barbarian("blue",new Point2D(x + i,y),i,CellValue.bBARBARIAN);
+                friends.add(bBarbarian);
+                creatures.add(bBarbarian);
+            }
+            setCellValue(x,y,CellValue.bBARBARIAN);
+        }
+        if (name.equals("cannon"))
+        {
+            Cannon bCannon = new Cannon("blue",new Point2D(x,y),CellValue.bCANNON);
+            friends.add(bCannon);
+            creatures.add(bCannon);
+            setCellValue(x,y,CellValue.bCANNON);
+        }
+        if (name.equals("fireball"))
+        {
+            Fireball bFireball = new Fireball("blue",new Point2D(x,y),CellValue.bFIREBALL);
+            friends.add(bFireball);
+            creatures.add(bFireball);
+            setCellValue(x,y,CellValue.bFIREBALL);
+        }
+        if (name.equals("giant"))
+        {
+            Giant bGiant = new Giant("blue",new Point2D(x,y),-1,CellValue.bGIANT);
+            count = bGiant.getCount();
+            for (int i = 0; i < count; i++)
+            {
+                bGiant = new Giant("blue",new Point2D(x + i,y),i,CellValue.bGIANT);
+                friends.add(bGiant);
+                creatures.add(bGiant);
+            }
+            setCellValue(x,y,CellValue.bGIANT);
+        }
+        if (name.equals("infernoTower"))
+        {
+            InfernoTower bInfernoTower = new InfernoTower("blue",new Point2D(x,y),CellValue.bINFERNOTOWER);
+            friends.add(bInfernoTower);
+            creatures.add(bInfernoTower);
+            setCellValue(x,y,CellValue.bINFERNOTOWER);
+        }
+        if (name.equals("miniPekka"))
+        {
+            MiniPekka bMiniPekka = new MiniPekka("blue",new Point2D(x,y),-1,CellValue.bMINIPEKKA);
+            count = bMiniPekka.getCount();
+            for (int i = 0; i < count; i++)
+            {
+                bMiniPekka = new MiniPekka("blue",new Point2D(x + i,y),i,CellValue.bMINIPEKKA);
+                friends.add(bMiniPekka);
+                creatures.add(bMiniPekka);
+            }
+            setCellValue(x,y,CellValue.bMINIPEKKA);
+        }
+        if (name.equals("rage"))
+        {
+            Rage bRage = new Rage("blue",new Point2D(x,y),CellValue.bRAGE);
+            friends.add(bRage);
+            creatures.add(bRage);
+            setCellValue(x,y,CellValue.bRAGE);
+        }
+        if (name.equals("valkyarie"))
+        {
+            Valkyarie bValkyarie = new Valkyarie("blue",new Point2D(x,y),-1,CellValue.bVALKYARIE);
+            count = bValkyarie.getCount();
+            for (int i = 0; i < count; i++)
+            {
+                bValkyarie = new Valkyarie("blue",new Point2D(x + i,y),i,CellValue.bVALKYARIE);
+                friends.add(bValkyarie);
+                creatures.add(bValkyarie);
+            }
+            setCellValue(x,y,CellValue.bVALKYARIE);
+        }
+        if (name.equals("wizard"))
+        {
+            Wizard bWizard = new Wizard("blue",new Point2D(x,y),-1,CellValue.bWIZARD);
+            count = bWizard.getCount();
+            for (int i = 0; i < count; i++)
+            {
+                bWizard = new Wizard("blue",new Point2D(x + i,y),i,CellValue.bWIZARD);
+                friends.add(bWizard);
+                creatures.add(bWizard);
+            }
+            setCellValue(x,y,CellValue.bWIZARD);
+        }
     }
 
     public void makeEnemies()
     {
         int count;
 
-        Archer archer = new Archer("red",new Point2D(3,8),-1,CellValue.rARCHER);
-        count = archer.getCount();
+        Archer rArcher = new Archer("red",new Point2D(3,8),-1,CellValue.rARCHER);
+        count = rArcher.getCount();
         for (int i = 0; i < count; i++)
         {
-            archer = new Archer("red",new Point2D(3 + i,8),i,CellValue.rARCHER);
-            enemies.add(archer);
-            creatures.add(archer);
+            rArcher = new Archer("red",new Point2D(3 + i,8),i,CellValue.rARCHER);
+            enemies.add(rArcher);
+            //creatures.add(rArcher);
         }
-        Arrow arrow = new Arrow("red",new Point2D(3,8),CellValue.rARROW);
-        enemies.add(arrow);
-        creatures.add(arrow);
-        BabyDragon babyDragon = new BabyDragon("red",new Point2D(3,8),-1,CellValue.rARROW);
-        count = babyDragon.getCount();
+        Arrow rArrow = new Arrow("red",new Point2D(3,8),CellValue.rARROW);
+        enemies.add(rArrow);
+        //creatures.add(rArrow);
+        BabyDragon rBabyDragon = new BabyDragon("red",new Point2D(3,8),-1,CellValue.rBABYDRAGON);
+        count = rBabyDragon.getCount();
         for (int i = 0; i < count; i++)
         {
-            babyDragon = new BabyDragon("red",new Point2D(3 + i,8),i,CellValue.rBABYDRAGON);
-            enemies.add(babyDragon);
-            creatures.add(babyDragon);
+            rBabyDragon = new BabyDragon("red",new Point2D(3 + i,8),i,CellValue.rBABYDRAGON);
+            enemies.add(rBabyDragon);
+            //creatures.add(rBabyDragon);
         }
-        Barbarian barbarian = new Barbarian("red",new Point2D(3,8),-1,CellValue.rBABYDRAGON);
-        count = barbarian.getCount();
+        Barbarian rBarbarian = new Barbarian("red",new Point2D(3,8),-1,CellValue.rBARBARIAN);
+        count = rBarbarian.getCount();
         for (int i = 0; i < count; i++)
         {
-            barbarian = new Barbarian("red",new Point2D(3 + i,8),i,CellValue.rBARBARIAN);
-            enemies.add(barbarian);
-            creatures.add(barbarian);
+            rBarbarian = new Barbarian("red",new Point2D(3 + i,8),i,CellValue.rBARBARIAN);
+            enemies.add(rBabyDragon);
+            //creatures.add(rBarbarian);
         }
-        Cannon cannon = new Cannon("red",new Point2D(3,8),CellValue.rBARBARIAN);
-        enemies.add(cannon);
-        creatures.add(cannon);
-        Fireball fireball = new Fireball("red",new Point2D(3,8),CellValue.rFIREBALL);
-        enemies.add(fireball);
-        creatures.add(fireball);
-        Giant giant = new Giant("red",new Point2D(3,8),-1,CellValue.rFIREBALL);
-        count = giant.getCount();
+        Cannon rCannon = new Cannon("red",new Point2D(3,8),CellValue.rCANNON);
+        enemies.add(rCannon);
+        //creatures.add(rCannon);
+
+        Fireball rFireball = new Fireball("red",new Point2D(3,8),CellValue.rFIREBALL);
+        enemies.add(rFireball);
+        //creatures.add(rFireball);
+        Giant rGiant = new Giant("red",new Point2D(3,8),-1,CellValue.rGIANT);
+        count = rGiant.getCount();
         for (int i = 0; i < count; i++)
         {
-            giant = new Giant("red",new Point2D(3 + i,8),i,CellValue.rGIANT);
-            enemies.add(giant);
-            creatures.add(giant);
+            rGiant = new Giant("red",new Point2D(3 + i,8),i,CellValue.rGIANT);
+            enemies.add(rGiant);
+            //creatures.add(rGiant);
         }
-        InfernoTower infernoTower = new InfernoTower("red",new Point2D(3,8),CellValue.rGIANT);
-        enemies.add(infernoTower);
-        creatures.add(infernoTower);
-        MiniPekka miniPekka = new MiniPekka("red",new Point2D(3,8),-1,CellValue.rMINIPEKKA);
-        count = miniPekka.getCount();
+        InfernoTower rInfernoTower = new InfernoTower("red",new Point2D(3,8),CellValue.rINFERNOTOWER);
+        enemies.add(rInfernoTower);
+        //creatures.add(rInfernoTower);
+        MiniPekka rMiniPekka = new MiniPekka("red",new Point2D(3,8),-1,CellValue.rMINIPEKKA);
+        count = rMiniPekka.getCount();
         for (int i = 0; i < count; i++)
         {
-            miniPekka = new MiniPekka("red",new Point2D(3 + i,8),i,CellValue.rMINIPEKKA);
-            enemies.add(miniPekka);
-            creatures.add(miniPekka);
+            rMiniPekka = new MiniPekka("red",new Point2D(3 + i,8),i,CellValue.rMINIPEKKA);
+            enemies.add(rMiniPekka);
+            //creatures.add(rMiniPekka);
         }
-        Rage rage = new Rage("red",new Point2D(3,8),CellValue.rRAGE);
-        enemies.add(rage);
-        creatures.add(rage);
-        Valkyarie valkyarie = new Valkyarie("red",new Point2D(3,8),-1,CellValue.rVALKYARIE);
-        count = valkyarie.getCount();
+        Rage rRage = new Rage("red",new Point2D(3,8),CellValue.rRAGE);
+        enemies.add(rRage);
+        //creatures.add(rRage);
+        Valkyarie rValkyarie = new Valkyarie("red",new Point2D(3,8),-1,CellValue.rVALKYARIE);
+        count = rValkyarie.getCount();
         for (int i = 0; i < count; i++)
         {
-            valkyarie = new Valkyarie("red",new Point2D(3 + i,8),i,CellValue.rVALKYARIE);
-            enemies.add(valkyarie);
-            creatures.add(valkyarie);
+            rValkyarie = new Valkyarie("red",new Point2D(3 + i,8),i,CellValue.rVALKYARIE);
+            enemies.add(rValkyarie);
+            //creatures.add(rValkyarie);
         }
-        Wizard wizard = new Wizard("red",new Point2D(3,8),-1,CellValue.rWIZARD);
-        count = wizard.getCount();
+        Wizard rWizard = new Wizard("red",new Point2D(3,8),-1,CellValue.rWIZARD);
+        count = rWizard.getCount();
         for (int i = 0; i < count; i++)
         {
-            wizard = new Wizard("red",new Point2D(3 + i,8),i,CellValue.rWIZARD);
-            enemies.add(wizard);
-            creatures.add(wizard);
+            rWizard = new Wizard("red",new Point2D(3 + i,8),i,CellValue.rWIZARD);
+            enemies.add(rWizard);
+            //creatures.add(rWizard);
         }
     }
 
@@ -930,6 +1028,7 @@ public class BoardManager {
                     if (creature.getColor().equals("red"))
                     {
                         enemies.remove(creature);
+                        aliveEnemies.remove(creature);
                     }
                     if (creature.getColor().equals("blue"))
                     {
@@ -949,6 +1048,7 @@ public class BoardManager {
                         if (creature.getColor().equals("red"))
                         {
                             enemies.remove(creature);
+                            aliveEnemies.remove(creature);
                         }
                         if (creature.getColor().equals("blue"))
                         {
@@ -959,6 +1059,102 @@ public class BoardManager {
                 setCellValue((int)creature.getLocation().getX(),(int)creature.getLocation().getY(),CellValue.GRASS);
             }
         }
+    }
+
+    /**
+     * This method selects four most powerful creatures for the enemy group
+     */
+    public void initializeEnemies()
+    {
+        Iterator<Creature> it = creatures.iterator();
+        while (it.hasNext())
+        {
+            Creature creature = it.next();
+            if (creature.getName().equals("babyDragon"))
+            {
+                aliveEnemies.add(creature);
+                enemies.remove(creature);
+                creatures.add(creature);
+                setCellValue((int)creature.getLocation().getX(),(int)creature.getLocation().getY(),CellValue.rBABYDRAGON);
+            }
+            if (creature.getName().equals("wizard"))
+            {
+                aliveEnemies.add(creature);
+                enemies.remove(creature);
+                creatures.add(creature);
+                setCellValue((int)creature.getLocation().getX(),(int)creature.getLocation().getY(),CellValue.rWIZARD);
+            }
+            if (creature.getName().equals("miniPekka"))
+            {
+                aliveEnemies.add(creature);
+                enemies.remove(creature);
+                creatures.add(creature);
+                setCellValue((int)creature.getLocation().getX(),(int)creature.getLocation().getY(),CellValue.rMINIPEKKA);
+            }
+            if (creature.getName().equals("giant"))
+            {
+                aliveEnemies.add(creature);
+                enemies.remove(creature);
+                creatures.add(creature);
+                setCellValue((int)creature.getLocation().getX(),(int)creature.getLocation().getY(),CellValue.rGIANT);
+            }
+        }
+    }
+
+    /**
+     * This method is used to check if we need to insert enemies to the game or not.
+     */
+    public void aliveEnemies()
+    {
+        Creature creature;
+        if (aliveEnemies.size() < 4)
+        {
+            creature = enemies.get(0);
+            aliveEnemies.add(creature);
+            enemies.remove(creature);
+            setCellValue((int)creature.getLocation().getX(),(int)creature.getLocation().getY(),creature.getCellValue());
+        }
+    }
+
+    public void setXPDamage(int level,Creature creature)
+    {
+        if (level == 1)
+        {
+            if(creature instanceof Troop)
+            {
+                if (creature.getName().equals("barbarian"))
+                {
+                    ((Troop) creature).setDamage(75);
+                    ((Troop) creature).setHP(300);
+                }
+                if (creature.getName().equals("archer"))
+                {
+                    ((Troop) creature).setDamage(125);
+                    ((Troop) creature).setHP(33);
+                }
+            }
+        }
+
+        if (level == 2)
+        {
+
+        }
+
+        if (level == 3)
+        {
+
+        }
+
+        if (level == 4)
+        {
+
+        }
+
+        if (level == 5)
+        {
+
+        }
+
     }
 
     public void setCellValue(int row , int column, CellValue cellValue){

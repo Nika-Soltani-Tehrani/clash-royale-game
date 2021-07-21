@@ -1,6 +1,12 @@
 package ClashRoyal;
 
 import javafx.geometry.Point2D;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.util.Duration;
 
 public abstract class Building extends Creature{
 
@@ -11,10 +17,10 @@ public abstract class Building extends Creature{
     protected double range;
     protected boolean isAlive = true;
 
-    public Building(String color, Point2D location,BoardManager.CellValue cellValue) {
-        super(color,location,cellValue);
-    }
 
+    public Building(String color, Point2D location,BoardManager.CellValue cellValue) {
+        super(color, location, cellValue);
+    }
 
     public abstract void action(BoardManager boardManager);
 
@@ -37,7 +43,7 @@ public abstract class Building extends Creature{
 
 
     public boolean isAlive() {
-        return (isAlive) || lifeTime > 0;
+        return (isAlive);
     }
 
     public void setAlive(boolean alive) {

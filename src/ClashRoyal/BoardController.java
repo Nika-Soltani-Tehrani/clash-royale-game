@@ -105,10 +105,7 @@ public class BoardController implements EventHandler<KeyEvent> {
         } else {
             keyRecognized = false;
         }
-        if (keyRecognized) {
-            keyEvent.consume();
-            boardManager.setCurrentDirection(direction);
-        }
+
     }
 
     /**
