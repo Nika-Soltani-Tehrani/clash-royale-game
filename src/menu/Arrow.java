@@ -1,14 +1,14 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
 
-public class PrincessTower extends Tower{
+public class Arrow extends Spell{
 
-    public PrincessTower(String color,Point2D location,int id,BoardManager.CellValue cellValue) {
-        super(color,location,id,cellValue);
-        this.range = 7.5;
-        this.hitSpeed = 0.8;
-        this.location = location;
+    public Arrow(String color, Point2D location, BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
+        this.cost = 3;
+        this.range = 4;
+        this.name = "arrow";
     }
 
     @Override
@@ -29,10 +29,10 @@ public class PrincessTower extends Tower{
                     enemy = boardManager.enemyFinder(boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)], color);
                     if (enemy != null) {
                         if (enemy instanceof Troop) {
-                            ((Troop) enemy).loseHP(this.damage);
+                            ((Troop) enemy).loseHP(((Troop) enemy).getHP());
                         }
                         if (enemy instanceof Building) {
-                            ((Building) enemy).loseHP(this.damage);
+                            ((Building) enemy).loseHP(((Building) enemy).getHP());
                         }
 
                     }
@@ -40,4 +40,5 @@ public class PrincessTower extends Tower{
             }
         }
     }
+
 }

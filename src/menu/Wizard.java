@@ -1,17 +1,17 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
 
-public class BabyDragon extends Troop{
+public class Wizard extends Troop{
 
-    public BabyDragon(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+    public Wizard(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
         super(color,location,id,cellValue);
-        this.cost = 4;
+        this.name = "wizard";
+        this.cost = 5;
         this.count = 1;
-        this.range = 3; //only can damage the person in front of him
-        this.speed = Speed.FAST;
-        this.hitSpeed = 1.8;
-        this.name = "babyDragon";
+        this.range = 5; //only can damage the person in front of him
+        this.speed = Speed.MEDIUM;
+        this.hitSpeed = 1.7;
     }
 
     @Override
@@ -24,9 +24,9 @@ public class BabyDragon extends Troop{
         for( int i = x; i < x + range; i++)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.GRASS)
+                    ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
-                    ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.BRIDGE)
             {
                 enemy = boardManager.enemyFinder(boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)],color);
@@ -49,9 +49,9 @@ public class BabyDragon extends Troop{
         for( int i = x; i > x - range; i--)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.GRASS)
+                    ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
-                    ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.BRIDGE)
             {
                 if (enemy != null) {
@@ -73,9 +73,9 @@ public class BabyDragon extends Troop{
         for( int i = y; i < y + range; i++)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.GRASS)
+                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.BRIDGE)
             {
                 if (enemy != null) {

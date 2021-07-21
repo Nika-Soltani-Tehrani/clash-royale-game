@@ -1,4 +1,4 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
 
@@ -11,15 +11,17 @@ public abstract class Troop extends Creature{
     protected Speed speed;
     protected int count;
     protected boolean isAlive = true;
+    protected int timeForClear;
 
 
     public enum Speed {
         SLOW, MEDIUM, FAST
     }
 
-    public Troop(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+    public Troop(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
         super(color,location,cellValue);
         this.id = id;
+        timeForClear = 0;
     }
 
     public abstract void action(BoardManager boardManager);
@@ -105,5 +107,15 @@ public abstract class Troop extends Creature{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getTimeForClear() {
+        return timeForClear;
+    }
+    public void setTimeForClear(){
+        timeForClear++;
+    }
+    public void newTimeForClear(){
+        this.timeForClear = 0 ;
     }
 }

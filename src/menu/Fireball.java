@@ -1,14 +1,14 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
 
-public class Arrow extends Spell{
+public class Fireball extends Spell{
 
-    public Arrow(String color, Point2D location,BoardManager.CellValue cellValue) {
+    public Fireball(String color, Point2D location, BoardManager.CellValue cellValue) {
         super(color,location,cellValue);
-        this.cost = 3;
-        this.range = 4;
-        this.name = "arrow";
+        this.cost = 4;
+        this.range = 2.5;
+        this.name = "fireball";
     }
 
     @Override
@@ -40,5 +40,4 @@ public class Arrow extends Spell{
             }
         }
     }
-
 }

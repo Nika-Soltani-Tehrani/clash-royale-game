@@ -1,4 +1,4 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
 import javafx.animation.Animation;
@@ -18,7 +18,7 @@ public abstract class Building extends Creature{
     protected boolean isAlive = true;
 
 
-    public Building(String color, Point2D location,BoardManager.CellValue cellValue) {
+    public Building(String color, Point2D location, BoardManager.CellValue cellValue) {
         super(color, location, cellValue);
     }
 

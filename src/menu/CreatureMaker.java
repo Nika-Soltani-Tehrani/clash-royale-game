@@ -1,4 +1,4 @@
-package ClashRoyal;
+package menu;
 
 public class CreatureMaker {
 

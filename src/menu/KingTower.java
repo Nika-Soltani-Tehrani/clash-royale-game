@@ -1,4 +1,4 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
 
@@ -6,7 +6,7 @@ public class KingTower extends Tower{
 
     private boolean isActive = false;
 
-    public KingTower(String color,Point2D location,int id,BoardManager.CellValue cellValue) {
+    public KingTower(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
         super(color,location,id,cellValue);
         this.range = 7;
         this.hitSpeed = 1;

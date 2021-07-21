@@ -1,6 +1,5 @@
 package menu;
 
-import ClashRoyal.Creature;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
@@ -12,15 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -87,7 +83,7 @@ public class BoardController implements EventHandler<KeyEvent> {
     public void initialize() {
         boardManager = new BoardManager();
         if(!end) {
-            update(BoardManager.Direction.NONE);
+            update();
             ghostEatingModeCounter = 25;
             gameTime.textProperty().bind(gameSeconds.asString());
             gameTimeLine = new Timeline(new KeyFrame(Duration.seconds(1), evt -> updateTime()));
@@ -106,7 +102,6 @@ public class BoardController implements EventHandler<KeyEvent> {
                             @Override
                             public ListCell<Card> call(ListView<Card> listView) {
                                 return new CellViewerController();
-                                //return new ImageTextCell();
                             }
                         }
                 );
@@ -135,15 +130,12 @@ public class BoardController implements EventHandler<KeyEvent> {
                         if (start) {
                             curColumn = (int) (mouseEvent.getX() / 19.6);
                             curRow = (int) (mouseEvent.getY() / 19.6);
-                            //boardManager.setCellValue(curRow,curColumn, BoardManager.CellValue.ELEMENT);
-                            boardGame.getCellViews()[curRow][curColumn].setImage(selectedCard.getBoardImage());
+                            boardManager.makeFriends(selectedCard.getTitle(),new Point2D(curRow,curColumn));
+                            //boardGame.getCellViews()[curColumn][curRow].setImage(selectedCard.getBoardImage());
                             desDone = false;
                             STARTTIME = timeSeconds.get() - selectedCard.getCost();
                             timeSeconds.set(STARTTIME);
                             timeline.play();
-                       /*PathTransition transition1 = newPathTransition(boardGame.getCellViews()[column][row],84.36,342.4,
-                                                                        mouseEvent.getX(),mouseEvent.getY());
-                       transition1.play();*/
                             done = true;
 
                         }
@@ -165,9 +157,9 @@ public class BoardController implements EventHandler<KeyEvent> {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         endGameCheck();
-                        if(!end) {
-                            update(boardManager.getCurrentDirection());
-                        }
+                        //if(!end) {
+                            update();
+                        //}
                     }
                 });
             }
@@ -179,16 +171,16 @@ public class BoardController implements EventHandler<KeyEvent> {
 
     /**
      * Steps the PacManModel, updates the view, updates score and level, displays Game Over/You Won, and instructions of how to play
-     * @param direction the most recently inputted direction for PacMan to move in
      */
-    private void update(BoardManager.Direction direction) {
-        //this.boardManager.step(direction);
+    private void update() {
+        this.boardManager.step();
         this.boardGame.update(boardManager);
-        this.scoreLabel.setText(String.format("Score: %d", this.boardManager.getScore()));
+        System.out.println("here!!!");
+        this.scoreLabel.setText(String.format("XP: %d", this.boardManager.getScore()));
         this.levelLabel.setText(String.format("Level: %d", this.boardManager.getLevel()));
-        this.setPosition();
+        //this.setPosition();
         this.checkActionEnd();
-        //this.endGameCheck();
+        this.endGameCheck();
         //if(done){
           //  cards.getItems().remove(cards.getSelectionModel().getSelectedItem());
         //}
@@ -251,7 +243,7 @@ public class BoardController implements EventHandler<KeyEvent> {
         }
         if (keyRecognized) {
             keyEvent.consume();
-            boardManager.setCurrentDirection(direction);
+            //boardManager.setCurrentDirection(direction);
         }
     }
 
@@ -303,7 +295,7 @@ public class BoardController implements EventHandler<KeyEvent> {
 
     }
     public void move(int desColumn,int desRow){
-        if(curColumn!=desColumn || curRow != desRow) {
+        if(curColumn !=desColumn || curRow != desRow) {
             if (curColumn <= 9 && curRow > 4) {
                 if (curColumn > 4) {
                     curColumn--;
@@ -335,7 +327,7 @@ public class BoardController implements EventHandler<KeyEvent> {
         if(selectedCard != null && done) {
             move(4, 4);
             //elements are needed
-            boardManager.setCellValue(curRow,curColumn, BoardManager.CellValue.ELEMENT);
+            //boardManager.setCellValue(curColumn, curRow, BoardManager.CellValue.ELEMENT);
             //boardGame.getCellViews()[curRow][curColumn].setImage(selectedCard.getBoardImage());
             i++;
             //boardManager.setCellValue(clearRow,clearColumn,value);
@@ -354,7 +346,7 @@ public class BoardController implements EventHandler<KeyEvent> {
     }
 
     public void checkActionEnd(){
-        if(desDone){
+        if(done){
             //cards.getItems().remove(cards.getSelectionModel().getSelectedItem());
             DeckViewerController.newCards.remove(cards.getSelectionModel().getSelectedItem());
             cards.setItems(getFourCards(DeckViewerController.newCards));

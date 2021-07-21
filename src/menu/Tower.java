@@ -1,4 +1,4 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
 
@@ -14,7 +14,7 @@ public abstract class Tower {
     protected boolean isAlive = true;
     protected BoardManager.CellValue cellValue;
 
-    public Tower(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+    public Tower(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
         this.id = id;
         this.color = color;
         this.location = location;

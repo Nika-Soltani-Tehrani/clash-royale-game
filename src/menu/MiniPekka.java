@@ -1,17 +1,18 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
 
-public class Valkyarie extends Troop{
+public class MiniPekka extends Troop{
 
-    public Valkyarie(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
+
+    public MiniPekka(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
         super(color,location,id,cellValue);
         this.cost = 4;
         this.count = 1;
         this.range = 1; //only can damage the person in front of him
-        this.speed = Speed.MEDIUM;
-        this.hitSpeed = 1.5;
-        this.name = "valkyarie";
+        this.speed = Speed.FAST;
+        this.hitSpeed = 1.8;
+        this.name = "miniPekka";
     }
 
     @Override
@@ -24,8 +25,6 @@ public class Valkyarie extends Troop{
         for( int i = x; i < x + range; i++)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.GRASS)
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
                     ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.BRIDGE)
             {
@@ -53,8 +52,6 @@ public class Valkyarie extends Troop{
         for( int i = x; i > x - range; i--)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.GRASS)
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
                     ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.BRIDGE)
             {
@@ -81,8 +78,6 @@ public class Valkyarie extends Troop{
         for( int i = y; i < y + range; i++)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.GRASS)
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.BRIDGE)
             {
@@ -109,8 +104,6 @@ public class Valkyarie extends Troop{
         for( int i = y; i > y - range; i--)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.GRASS)
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.BRIDGE)
             {
@@ -135,4 +128,5 @@ public class Valkyarie extends Troop{
             }
         }
     }
+
 }

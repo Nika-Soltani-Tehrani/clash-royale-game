@@ -1,4 +1,4 @@
-package ClashRoyal;
+package menu;
 
 
 import javafx.animation.Animation;
@@ -16,7 +16,7 @@ public class Rage extends Spell{
     private Timeline timeline;
     private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
-    public Rage(String color, Point2D location,BoardManager.CellValue cellValue) {
+    public Rage(String color, Point2D location, BoardManager.CellValue cellValue) {
         super(color,location,cellValue);
         this.cost = 3;
         this.range = 5;

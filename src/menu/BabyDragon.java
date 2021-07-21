@@ -1,37 +1,19 @@
-package ClashRoyal;
+package menu;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
-import javafx.util.Duration;
 
-public class Cannon extends Building{
-    private static final int STARTTIME = 0;
-    private Timeline timeline;
-    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+public class BabyDragon extends Troop{
 
-    public Cannon(String color, Point2D location,BoardManager.CellValue cellValue) {
-        super(color,location,cellValue);
-        this.cost = 6;
-        this.lifeTime = 30;
-        this.range = 5.5;
-        this.hitSpeed = 0.8;
-        this.name = "cannon";
-        // TODO
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> updateTimer()));
-        timeline.setCycleCount(Animation.INDEFINITE); // repeat over and over again
-        timeSeconds.set(STARTTIME);
-        timeline.play();
-
+    public BabyDragon(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
+        this.cost = 4;
+        this.count = 1;
+        this.range = 3; //only can damage the person in front of him
+        this.speed = Speed.FAST;
+        this.hitSpeed = 1.8;
+        this.name = "babyDragon";
     }
-    private void updateTimer() {
-        // increment seconds
-        int lifeTimeTimer = timeSeconds.get();
-        timeSeconds.set(lifeTimeTimer + 1);
-    }
+
     @Override
     public void action(BoardManager boardManager)
     {
@@ -51,11 +33,7 @@ public class Cannon extends Building{
                 if (enemy != null) {
                     if (enemy instanceof Troop)
                     {
-
-                        if (!enemy.getName().equals("babyDragon"))
-                        {
-                            ((Troop) enemy).loseHP(this.damage);
-                        }
+                        ((Troop) enemy).loseHP(this.damage);
                     }
                     if (enemy instanceof Building)
                     {
@@ -79,11 +57,7 @@ public class Cannon extends Building{
                 if (enemy != null) {
                     if (enemy instanceof Troop)
                     {
-
-                        if (!enemy.getName().equals("babyDragon"))
-                        {
-                            ((Troop) enemy).loseHP(this.damage);
-                        }
+                        ((Troop) enemy).loseHP(this.damage);
                     }
                     if (enemy instanceof Building)
                     {
@@ -107,11 +81,7 @@ public class Cannon extends Building{
                 if (enemy != null) {
                     if (enemy instanceof Troop)
                     {
-
-                        if (!enemy.getName().equals("babyDragon"))
-                        {
-                            ((Troop) enemy).loseHP(this.damage);
-                        }
+                        ((Troop) enemy).loseHP(this.damage);
                     }
                     if (enemy instanceof Building)
                     {
@@ -135,11 +105,7 @@ public class Cannon extends Building{
                 if (enemy != null) {
                     if (enemy instanceof Troop)
                     {
-
-                        if (!enemy.getName().equals("babyDragon"))
-                        {
-                            ((Troop) enemy).loseHP(this.damage);
-                        }
+                        ((Troop) enemy).loseHP(this.damage);
                     }
                     if (enemy instanceof Building)
                     {
@@ -152,9 +118,6 @@ public class Cannon extends Building{
                 }
             }
         }
-        if (timeSeconds.intValue() == lifeTime)
-        {
-            isAlive = false;
-        }
     }
+
 }

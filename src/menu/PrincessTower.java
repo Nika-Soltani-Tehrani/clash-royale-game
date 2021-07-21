@@ -1,14 +1,14 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
 
-public class Fireball extends Spell{
+public class PrincessTower extends Tower{
 
-    public Fireball(String color, Point2D location,BoardManager.CellValue cellValue) {
-        super(color,location,cellValue);
-        this.cost = 4;
-        this.range = 2.5;
-        this.name = "fireball";
+    public PrincessTower(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
+        this.range = 7.5;
+        this.hitSpeed = 0.8;
+        this.location = location;
     }
 
     @Override
@@ -29,10 +29,10 @@ public class Fireball extends Spell{
                     enemy = boardManager.enemyFinder(boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)], color);
                     if (enemy != null) {
                         if (enemy instanceof Troop) {
-                            ((Troop) enemy).loseHP(((Troop) enemy).getHP());
+                            ((Troop) enemy).loseHP(this.damage);
                         }
                         if (enemy instanceof Building) {
-                            ((Building) enemy).loseHP(((Building) enemy).getHP());
+                            ((Building) enemy).loseHP(this.damage);
                         }
 
                     }

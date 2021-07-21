@@ -1,17 +1,37 @@
-package ClashRoyal;
+package menu;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
+import javafx.util.Duration;
 
-public class Giant extends Troop{
+public class InfernoTower extends Building{
 
-    public Giant(String color, Point2D location,int id,BoardManager.CellValue cellValue) {
-        super(color,location,id,cellValue);
+    private static final int STARTTIME = 0;
+    private Timeline timeline;
+    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+
+    public InfernoTower(String color, Point2D location, BoardManager.CellValue cellValue) {
+        super(color,location,cellValue);
         this.cost = 5;
-        this.count = 1;
-        this.range = 1; //only can damage the person in front of him
-        this.speed = Speed.SLOW;
-        this.hitSpeed = 1.5;
-        this.name = "giant";
+        this.lifeTime = 40;
+        this.range = 6;
+        this.hitSpeed = 0.4;
+        this.name = "infernoTower";
+        // TODO
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> updateTimer()));
+        timeline.setCycleCount(Animation.INDEFINITE); // repeat over and over again
+        timeSeconds.set(STARTTIME);
+        timeline.play();
+
+    }
+    private void updateTimer() {
+        // increment seconds
+        int lifeTimeTimer = timeSeconds.get();
+        timeSeconds.set(lifeTimeTimer + 1);
     }
 
     @Override
@@ -31,7 +51,10 @@ public class Giant extends Troop{
             {
                 enemy = boardManager.enemyFinder(boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)],color);
                 if (enemy != null) {
-
+                    if (enemy instanceof Troop)
+                    {
+                        ((Troop) enemy).loseHP(this.damage);
+                    }
                     if (enemy instanceof Building)
                     {
                         ((Building) enemy).loseHP(this.damage);
@@ -52,7 +75,10 @@ public class Giant extends Troop{
                     ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.BRIDGE)
             {
                 if (enemy != null) {
-
+                    if (enemy instanceof Troop)
+                    {
+                        ((Troop) enemy).loseHP(this.damage);
+                    }
                     if (enemy instanceof Building)
                     {
                         ((Building) enemy).loseHP(this.damage);
@@ -73,7 +99,10 @@ public class Giant extends Troop{
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.BRIDGE)
             {
                 if (enemy != null) {
-
+                    if (enemy instanceof Troop)
+                    {
+                        ((Troop) enemy).loseHP(this.damage);
+                    }
                     if (enemy instanceof Building)
                     {
                         ((Building) enemy).loseHP(this.damage);
@@ -88,13 +117,16 @@ public class Giant extends Troop{
         for( int i = y; i > y - range; i--)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.GRASS)
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
+                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.BRIDGE)
             {
                 if (enemy != null) {
-
+                    if (enemy instanceof Troop)
+                    {
+                        ((Troop) enemy).loseHP(this.damage);
+                    }
                     if (enemy instanceof Building)
                     {
                         ((Building) enemy).loseHP(this.damage);
@@ -105,6 +137,10 @@ public class Giant extends Troop{
                     }*/
                 }
             }
+        }
+        if (timeSeconds.intValue() == lifeTime)
+        {
+            isAlive = false;
         }
     }
 

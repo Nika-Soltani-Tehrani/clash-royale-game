@@ -1,38 +1,19 @@
-package ClashRoyal;
+package menu;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
-import javafx.util.Duration;
 
-public class InfernoTower extends Building{
+public class Barbarian extends Troop{
 
-    private static final int STARTTIME = 0;
-    private Timeline timeline;
-    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
-
-    public InfernoTower(String color, Point2D location,BoardManager.CellValue cellValue) {
-        super(color,location,cellValue);
+    public Barbarian(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
+        super(color,location,id,cellValue);
         this.cost = 5;
-        this.lifeTime = 40;
-        this.range = 6;
-        this.hitSpeed = 0.4;
-        this.name = "infernoTower";
-        // TODO
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> updateTimer()));
-        timeline.setCycleCount(Animation.INDEFINITE); // repeat over and over again
-        timeSeconds.set(STARTTIME);
-        timeline.play();
+        this.count = 4;
+        this.range = 1; //only can damage the person in front of him
+        this.speed = Speed.MEDIUM;
+        this.hitSpeed = 1.5;
+        this.name = "barbarian";
+    }
 
-    }
-    private void updateTimer() {
-        // increment seconds
-        int lifeTimeTimer = timeSeconds.get();
-        timeSeconds.set(lifeTimeTimer + 1);
-    }
 
     @Override
     public void action(BoardManager boardManager)
@@ -44,20 +25,20 @@ public class InfernoTower extends Building{
         for( int i = x; i < x + range; i++)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.GRASS)
-                    ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
+                    ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.BRIDGE)
             {
                 enemy = boardManager.enemyFinder(boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)],color);
                 if (enemy != null) {
                     if (enemy instanceof Troop)
                     {
-                        ((Troop) enemy).loseHP(this.damage);
-                    }
-                    if (enemy instanceof Building)
-                    {
-                        ((Building) enemy).loseHP(this.damage);
+
+                        if (!enemy.getName().equals("babyDragon"))
+                        {
+                            ((Troop) enemy).loseHP(this.damage);
+                        }
                     }
                     /*if (enemy instanceof Spell)
                     {
@@ -69,48 +50,40 @@ public class InfernoTower extends Building{
         for( int i = x; i > x - range; i--)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.GRASS)
-                    ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
+                    ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] != BoardManager.CellValue.BRIDGE)
             {
                 if (enemy != null) {
                     if (enemy instanceof Troop)
                     {
-                        ((Troop) enemy).loseHP(this.damage);
+
+                        if (!enemy.getName().equals("babyDragon"))
+                        {
+                            ((Troop) enemy).loseHP(this.damage);
+                        }
                     }
-                    if (enemy instanceof Building)
-                    {
-                        ((Building) enemy).loseHP(this.damage);
-                    }
-                    /*if (enemy instanceof Spell)
-                    {
-                        this.loseHP(((Spell) enemy).getAreaDamage());
-                    }*/
                 }
             }
         }
         for( int i = y; i < y + range; i++)
         {
             if ((boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.GRASS)
-                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.WATER
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.DESTROY
+                    ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.ROAD
                     ||boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] != BoardManager.CellValue.BRIDGE)
             {
                 if (enemy != null) {
                     if (enemy instanceof Troop)
                     {
-                        ((Troop) enemy).loseHP(this.damage);
+
+                        if (!enemy.getName().equals("babyDragon"))
+                        {
+                            ((Troop) enemy).loseHP(this.damage);
+                        }
                     }
-                    if (enemy instanceof Building)
-                    {
-                        ((Building) enemy).loseHP(this.damage);
-                    }
-                    /*if (enemy instanceof Spell)
-                    {
-                        this.loseHP(((Spell) enemy).getAreaDamage());
-                    }*/
                 }
             }
         }
@@ -125,24 +98,14 @@ public class InfernoTower extends Building{
                 if (enemy != null) {
                     if (enemy instanceof Troop)
                     {
-                        ((Troop) enemy).loseHP(this.damage);
+
+                        if (!enemy.getName().equals("babyDragon"))
+                        {
+                            ((Troop) enemy).loseHP(this.damage);
+                        }
                     }
-                    if (enemy instanceof Building)
-                    {
-                        ((Building) enemy).loseHP(this.damage);
-                    }
-                    /*if (enemy instanceof Spell)
-                    {
-                        this.loseHP(((Spell) enemy).getAreaDamage());
-                    }*/
                 }
             }
         }
-        if (timeSeconds.intValue() == lifeTime)
-        {
-            isAlive = false;
-        }
     }
-
-
 }

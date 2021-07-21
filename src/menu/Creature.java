@@ -1,6 +1,8 @@
-package ClashRoyal;
+package menu;
 
 import javafx.geometry.Point2D;
+
+import java.util.HashMap;
 
 public abstract class Creature {
 
@@ -9,13 +11,15 @@ public abstract class Creature {
     protected String name;
     protected int cost;
     protected double range;
-    protected Point2D location;
+    protected static Point2D location;
     protected Point2D velocity;
+    protected HashMap<Point2D, BoardManager.CellValue> saveCell;
 
     public Creature(String color, Point2D location, BoardManager.CellValue cellValue) {
         this.color = color;
         this.cellValue = cellValue;
         this.location = location;
+        saveCell = new HashMap<>();
     }
 
     public BoardManager.CellValue getCellValue() {
@@ -74,6 +78,8 @@ public abstract class Creature {
         this.name = name;
     }
 
-
+    public HashMap<Point2D, BoardManager.CellValue> getSaveCell() {
+        return saveCell;
+    }
 }
 
