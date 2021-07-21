@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="299.0" prefWidth="303.0" styleClass="bodybg" stylesheets="@../background%20.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.BoardController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="138.0" prefWidth="303.0">
+         <children>
+            <Label fx:id="result" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="163.0" prefWidth="303.0">
+         <children>
+            <Button fx:id="menuButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="bodybg1" stylesheets="@../background%20.css" text="Back to the menu" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

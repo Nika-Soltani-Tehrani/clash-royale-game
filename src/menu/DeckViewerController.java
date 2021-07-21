@@ -30,19 +30,21 @@ public class DeckViewerController {
    public void initialize() {
       // populate the ObservableList<Book>
       cards.add(new Card("archers",
-         "/images/small/archers.png","archers.png"));
+         "/images/small/archers.png","archers.png",3));
       cards.add(new Card("arrows",
-         "/images/small/arrows.png","arrows.png"));
+         "/images/small/arrows.png","arrows.png",3));
       cards.add(new Card("baby dragon",
-         "/images/small/baby-dragon.png","baby-dragon.png"));
-      cards.add(new Card("balloon",
-         "/images/small/balloon.png","balloon.png"));
-      cards.add(new Card("bandit",
-         "/images/small/bandit.png","bandit.png"));
-      cards.add(new Card("barbarian-barrel",
-         "/images/small/barbarian-barrel.png","barbarian-barrel.png"));
-      cards.add(new Card("bats",
-         "/images/small/bats.png","bats.png"));
+         "/images/small/baby-dragon.png","baby-dragon.png",4));
+      cards.add(new Card("barbarians",
+         "/images/small/barbarians.png","barbarians.png",5));
+      cards.add(new Card("wizard","/images/small/wizard.png","wizard.png",5));
+      cards.add(new Card("mini-pekka","/images/small/mini-pekka.png","mini-pekka.png",4));
+      cards.add(new Card("giant","/images/small/giant.png","giant.png",5));
+      cards.add(new Card("valkyrie","/images/small/valkyrie.png","valkyrie.png",4));
+      cards.add(new Card("rage","/images/small/rage.png","rage.png",3));
+      cards.add(new Card("fireball","/images/small/fireball.png","fireball.png",4));
+      cards.add(new Card("cannon","/images/small/cannon.png","cannon.png",6));
+      cards.add(new Card("inferno-tower","/images/small/inferno-tower.png","inferno-tower.png",5));
       booksListView.setItems(cards); // bind booksListView to books
       // when ListView selection changes, show large cover in ImageView
       if(newCards!=null){

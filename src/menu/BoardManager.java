@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class BoardManager {
 
     public enum CellValue {
-        GRASS, WATER, ROAD, BLUEQUEEN, BLUEKING, REDQUEEN, REDKING, BRIDGE, TREE, EDGE,
+        GRASS, WATER, ROAD, BLUEQUEEN, BLUEKING, REDQUEEN, REDKING, BRIDGE, TREE, EDGE,ELEMENT,
     }
 
     public enum Direction {
@@ -488,7 +488,7 @@ public class BoardManager {
      */
     public CellValue getCellValue(int row, int column) {
         assert row >= 0 && row < this.grid.length && column >= 0 && column < this.grid[0].length;
-        System.out.println(grid[row][column].toString());
+        //System.out.println(grid[row][column].toString());
         return this.grid[row][column];
     }
 
@@ -517,6 +517,10 @@ public class BoardManager {
         return level;
     }
 
-
+    public void setCellValue(int row , int column, CellValue cellValue){
+        assert row >= 0 && row < this.grid.length && column >= 0 && column < this.grid[0].length;
+        this.grid[row][column] = cellValue;
+        //System.out.println(grid[row][column].toString());
+    }
 
 }

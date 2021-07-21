@@ -3,13 +3,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.BoardController">
+<BorderPane fx:id="gameBoard" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.BoardController">
     <top>
         <BorderPane prefHeight="25" style="-fx-background-color: #0B5091; -fx-padding: 10px, 5px, 10px, 5px">
             <left><Label fx:id="scoreLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></left>
             <center><Label fx:id="gameOverLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></center>
             <right><Label fx:id="levelLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></right>
+         <top>
+            <Label fx:id="gameTime" text="time" textFill="#fcfcfc" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+         </top>
         </BorderPane>
     </top>
     <center>
@@ -20,6 +27,12 @@
          <center>
             <ListView fx:id="cards" prefHeight="74.0" prefWidth="85.0" BorderPane.alignment="CENTER" />
          </center>
+         <top>
+            <Label text="XP:" textFill="#e7e1e1" BorderPane.alignment="CENTER" fx:id="xpTimer">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+         </top>
       </BorderPane>
    </left>
     
