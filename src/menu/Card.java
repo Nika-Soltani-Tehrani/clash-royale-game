@@ -2,6 +2,9 @@ package menu;
 
 import javafx.scene.image.Image;
 
+/**
+ * The type Card.
+ */
 // Book.java
 public class Card {
    private String title; // book title
@@ -9,30 +12,68 @@ public class Card {
    private Image boardImage;
    private int cost;
 
-   public Card(String title, String thumbImage, String boardName, int cost) {
+    /**
+     * Instantiates a new Card.
+     *
+     * @param title      the title
+     * @param thumbImage the thumb image
+     * @param boardName  the board name
+     * @param cost       the cost
+     */
+    public Card(String title, String thumbImage, String boardName, int cost) {
       this.title = title;
       this.thumbImage = thumbImage;
       this.boardImage = new Image(getClass().getResourceAsStream("/images/board/"+boardName));
       this.cost = cost;
 
    }
-   
-   public String getTitle() {return title;}
 
-   public void setTitle(String title) {this.title = title;}
-   
-   public String getThumbImage() {return thumbImage;}
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
+    public String getTitle() {return title;}
 
-   public void setThumbImage(String thumbImage) {this.thumbImage = thumbImage;}
+    /**
+     * Sets title.
+     *
+     * @param title the title
+     */
+    public void setTitle(String title) {this.title = title;}
 
-   public Image getBoardImage(){
+    /**
+     * Gets thumb image.
+     *
+     * @return the thumb image
+     */
+    public String getThumbImage() {return thumbImage;}
+
+    /**
+     * Sets thumb image.
+     *
+     * @param thumbImage the thumb image
+     */
+    public void setThumbImage(String thumbImage) {this.thumbImage = thumbImage;}
+
+    /**
+     * Get board image image.
+     *
+     * @return the image
+     */
+    public Image getBoardImage(){
       return this.boardImage;
    }
 
    @Override
    public String toString() {return getTitle();}
 
-   public int getCost() {
+    /**
+     * Gets cost.
+     *
+     * @return the cost
+     */
+    public int getCost() {
       return cost;
    }
 }

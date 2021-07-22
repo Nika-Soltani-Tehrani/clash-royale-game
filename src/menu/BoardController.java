@@ -8,72 +8,67 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class BoardController implements EventHandler<KeyEvent> {
+/**
+ * The type Board controller.
+ */
+public class BoardController{
 
-    final private static double FRAMES_PER_SECOND = 5.0;
+    final private static double FRAMES_PER_SECOND = 2.0;
     @FXML private Label scoreLabel;
     @FXML private Label levelLabel;
-    @FXML private Label gameOverLabel;
     @FXML private BoardGame boardGame;
     @FXML private ListView<Card> cards;
     @FXML private Label xpTimer;
     @FXML private Label gameTime;
-    @FXML private BorderPane gameBoard;
+    @FXML private Label result;
+    private int xpResult;
     private BoardManager boardManager;
     private static final String levelFile = "levels/level1.txt";
+    /**
+     * The Four cards.
+     */
     ObservableList<Card> fourCards = FXCollections.observableArrayList();
     private Timer timer;
-    private static int ghostEatingModeCounter;
     private static int STARTTIME = 4;
     private static final int STARTGAME= 180;
     private Timeline gameTimeLine;
     private final IntegerProperty gameSeconds = new SimpleIntegerProperty(STARTGAME);
     private Timeline timeline;
     private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
-    private boolean paused;
     private boolean start=false;
     private boolean done = false;
     private boolean desDone = false;
-    private boolean miniDes = false;
     private Card selectedCard;
     private static int curColumn;
     private static int curRow;
-    private int clearColumn;
-    private int clearRow ;
-    private BoardManager.CellValue value;
     private BoardManager.CellValue[][] saveCell = new BoardManager.CellValue[32][18];
     private HashMap<Point2D, BoardManager.CellValue> save = new HashMap<>();
-    private int i =0;
     private static boolean  end=false;
 
+    /**
+     * Instantiates a new Board controller.
+     */
     public BoardController() {
-        this.paused = false;
         this.start = false;
     }
 
@@ -84,7 +79,6 @@ public class BoardController implements EventHandler<KeyEvent> {
         boardManager = new BoardManager();
         if(!end) {
             update();
-            ghostEatingModeCounter = 25;
             gameTime.textProperty().bind(gameSeconds.asString());
             gameTimeLine = new Timeline(new KeyFrame(Duration.seconds(1), evt -> updateTime()));
             gameTimeLine.setCycleCount(Animation.INDEFINITE);
@@ -131,7 +125,6 @@ public class BoardController implements EventHandler<KeyEvent> {
                             curColumn = (int) (mouseEvent.getX() / 19.6);
                             curRow = (int) (mouseEvent.getY() / 19.6);
                             boardManager.makeFriends(selectedCard.getTitle(),new Point2D(curRow,curColumn));
-                            //boardGame.getCellViews()[curColumn][curRow].setImage(selectedCard.getBoardImage());
                             desDone = false;
                             STARTTIME = timeSeconds.get() - selectedCard.getCost();
                             timeSeconds.set(STARTTIME);
@@ -143,6 +136,8 @@ public class BoardController implements EventHandler<KeyEvent> {
                 });
             }
             startTimer();
+        }else{
+            result.setText("Your score is:"+xpResult);
         }
     }
 
@@ -157,9 +152,7 @@ public class BoardController implements EventHandler<KeyEvent> {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         endGameCheck();
-                        //if(!end) {
                             update();
-                        //}
                     }
                 });
             }
@@ -175,39 +168,21 @@ public class BoardController implements EventHandler<KeyEvent> {
     private void update() {
         this.boardManager.step();
         this.boardGame.update(boardManager);
-        System.out.println("here!!!");
         this.scoreLabel.setText(String.format("XP: %d", this.boardManager.getScore()));
         this.levelLabel.setText(String.format("Level: %d", this.boardManager.getLevel()));
-        //this.setPosition();
         this.checkActionEnd();
         this.endGameCheck();
-        //if(done){
-          //  cards.getItems().remove(cards.getSelectionModel().getSelectedItem());
-        //}
-        //start = false;
-        //done = false;
-        /*if (boardManager.isGameOver()) {
-            this.gameOverLabel.setText("GAME OVER");
-            pause();
-        }
-        if (boardManager.isYouWon()) {
-            this.gameOverLabel.setText("YOU WON!");
-        }
-        //when PacMan is in ghostEatingMode, count down the ghostEatingModeCounter to reset ghostEatingMode to false when the counter is 0
-        if (boardManager.isGhostEatingMode()) {
-            ghostEatingModeCounter--;
-        }
-        if (ghostEatingModeCounter == 0 && boardManager.isGhostEatingMode()) {
-            boardManager.setGhostEatingMode(false);
-        }*/
     }
     private void updateXp() {
-        // increment seconds
         if(timeSeconds.get()>=10){
            timeSeconds.set(10);
         }else {
             int xp = timeSeconds.get();
-            timeSeconds.set(xp + 1);
+            if(gameSeconds.get()>60) {
+                timeSeconds.set(xp + 1);
+            }else{
+                timeSeconds.set(xp + 2);
+            }
         }
     }
     private void updateTime(){
@@ -215,140 +190,42 @@ public class BoardController implements EventHandler<KeyEvent> {
         gameSeconds.set(seconds-1);
     }
 
-    /**
-     * Takes in user keyboard input to control the movement of creatures and start new games
-     * @param keyEvent user's key click
-     */
-    @Override
-    public void handle(KeyEvent keyEvent) {
-        boolean keyRecognized = true;
-        KeyCode code = keyEvent.getCode();
-        BoardManager.Direction direction = BoardManager.Direction.NONE;
-        if (code == KeyCode.LEFT) {
-            direction = BoardManager.Direction.LEFT;
-        } else if (code == KeyCode.RIGHT) {
-            direction = BoardManager.Direction.RIGHT;
-        } else if (code == KeyCode.UP) {
-            direction = BoardManager.Direction.UP;
-        } else if (code == KeyCode.DOWN) {
-            direction = BoardManager.Direction.DOWN;
-        } else if (code == KeyCode.G) {
-            pause();
-            this.boardManager.startNewGame();
-            this.gameOverLabel.setText("");
-            paused = false;
-            //this.startTimer();
-        } else {
-            keyRecognized = false;
-        }
-        if (keyRecognized) {
-            keyEvent.consume();
-            //boardManager.setCurrentDirection(direction);
-        }
-    }
 
     /**
-     * Pause the timer
+     * Gets board width.
+     *
+     * @return the board width
      */
-    public void pause() {
-            this.timer.cancel();
-            this.paused = true;
-    }
-
     public double getBoardWidth() {
         return BoardGame.CELL_WIDTH * this.boardGame.getColumnCount();
     }
 
+    /**
+     * Gets board height.
+     *
+     * @return the board height
+     */
     public double getBoardHeight() {
         return BoardGame.CELL_WIDTH * this.boardGame.getRowCount();
     }
 
-    public static void setGhostEatingModeCounter() {
-        ghostEatingModeCounter = 25;
-    }
 
-    public static int getGhostEatingModeCounter() {
-        return ghostEatingModeCounter;
-    }
-
+    /**
+     * Gets level file.
+     *
+     * @return the level file
+     */
     public static String getLevelFile()
     {
         return levelFile;
     }
 
-    public boolean getPaused() {
-        return paused;
-    }
-
-    public void newPathTransition(ImageView image, double toX, double toY, double column, double row){
-        Path path = new Path();
-        path.getElements().add(new MoveTo(image.getX(),image.getY()));
-        path.getElements().add(new LineTo(toX,toY));
-        path.getElements().add(new LineTo(84.36,83.2));
-        PathTransition transition = new PathTransition();
-        transition.setPath(path);
-        transition.setNode(image);
-        transition.setDelay(Duration.seconds(1));
-        transition.setDuration(Duration.seconds(6));
-
-        //return transition;
-
-    }
-    public void move(int desColumn,int desRow){
-        if(curColumn !=desColumn || curRow != desRow) {
-            if (curColumn <= 9 && curRow > 4) {
-                if (curColumn > 4) {
-                    curColumn--;
-                } else if (curColumn < 4) {
-                    curColumn++;
-                }
-            } if (curColumn > 9 && curRow > 4) {
-                if (curColumn < 14) {
-                    curColumn++;
-                } else if (curColumn > 14) {
-                    curColumn--;
-                }
-            } if ((curColumn == 4 || curColumn == 14)) {
-                curRow--;
-            }
-            miniDes = true;
-        }
-        else{
-            desDone = true;
-        }
-        clearColumn = curColumn;
-        clearRow = curRow;
-        value = boardManager.getCellValue(clearRow,clearColumn);
-        save.put(new Point2D(clearRow,clearColumn),value);
-        System.out.println(value.toString());
-    }
-
-    public void setPosition(){
-        if(selectedCard != null && done) {
-            move(4, 4);
-            //elements are needed
-            //boardManager.setCellValue(curColumn, curRow, BoardManager.CellValue.ELEMENT);
-            //boardGame.getCellViews()[curRow][curColumn].setImage(selectedCard.getBoardImage());
-            i++;
-            //boardManager.setCellValue(clearRow,clearColumn,value);
-            //boardGame.getCellViews()[curRow][curColumn].setImage(selectedCard.getBoardImage());
-            clearSave();
-        }
-    }
-
-    public void clearSave(){
-        if(i==2) {
-            for (Point2D point2D : save.keySet()) {
-                boardManager.setCellValue((int) point2D.getX(), (int) point2D.getY(), save.get(point2D));
-            }
-            i=0;
-        }
-    }
-
+    /**
+     * Check action end.
+     */
     public void checkActionEnd(){
         if(done){
-            //cards.getItems().remove(cards.getSelectionModel().getSelectedItem());
-            DeckViewerController.newCards.remove(cards.getSelectionModel().getSelectedItem());
+            DeckViewerController.newCards.remove(selectedCard);
             cards.setItems(getFourCards(DeckViewerController.newCards));
             cards.getSelectionModel().clearSelection();
             done = false;
@@ -358,6 +235,12 @@ public class BoardController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * Get four cards observable list.
+     *
+     * @param cards the cards
+     * @return the observable list
+     */
     public ObservableList<Card> getFourCards(ObservableList<Card> cards){
         if(done) {
             fourCards.clear();
@@ -377,12 +260,17 @@ public class BoardController implements EventHandler<KeyEvent> {
 
     }
 
+    /**
+     * End game check.
+     */
     public void endGameCheck() {
-        if(gameSeconds.get()==0){
+        if(gameSeconds.get()==0 || boardManager.isEndGame()){
             Stage stage =(Stage) boardGame.getScene().getWindow();
+            xpResult=boardManager.getXP();
             stage.close();
             timer.cancel();
             gameTimeLine.stop();
+            boardManager.setWinnerXP();
             end = true;
             Parent root = null;
             try {
@@ -395,20 +283,26 @@ public class BoardController implements EventHandler<KeyEvent> {
                 e.printStackTrace();
             }
 
-
-        }if(boardManager.getCellValue(4,4) != BoardManager.CellValue.REDQUEEN&&
-            boardManager.getCellValue(14,14) != BoardManager.CellValue.REDQUEEN&&
-            boardManager.getCellValue(3,9) != BoardManager.CellValue.REDKING){
-
-
-        }if(boardManager.getCellValue(4,4) != BoardManager.CellValue.BLUEQUEEN&&
-                boardManager.getCellValue(14,14) != BoardManager.CellValue.BLUEQUEEN&&
-                boardManager.getCellValue(3,9) != BoardManager.CellValue.BLUEQUEEN){
-
-
         }
 
 
+    }
+
+    /**
+     * Back to menu.
+     *
+     * @param event the event
+     * @throws Exception the exception
+     */
+    public void backToMenu(ActionEvent event) throws Exception{
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+        primaryStage.setTitle("Menu");
+        primaryStage.setScene(new Scene(root, 400, 600));
+        primaryStage.show();
     }
 
 }

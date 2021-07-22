@@ -16,6 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+/**
+ * The type Deck viewer controller.
+ */
 public class DeckViewerController {
    // instance variables for interacting with GUI
    @FXML private ListView<Card> booksListView;
@@ -25,9 +28,16 @@ public class DeckViewerController {
    // stores the list of Book Objects
    private final ObservableList<Card> cards =
       FXCollections.observableArrayList();
-   public final static ObservableList<Card> newCards =
+    /**
+     * The New cards.
+     */
+    public final static ObservableList<Card> newCards =
            FXCollections.observableArrayList();
-   public void initialize() {
+
+    /**
+     * Initialize.
+     */
+    public void initialize() {
       // populate the ObservableList<Book>
       cards.add(new Card("archer",
          "/images/small/archers.png","archers.png",3));
@@ -88,13 +98,25 @@ public class DeckViewerController {
       );
    }
 
-   @FXML
+    /**
+     * Reset.
+     *
+     * @param event the event
+     */
+    @FXML
     public void reset(ActionEvent event){
        if(sortedListView.getItems() != null){
            sortedListView.getItems().clear();
            newCards.clear();
        }
    }
+
+    /**
+     * Menu.
+     *
+     * @param event the event
+     * @throws Exception the exception
+     */
     public void menu(ActionEvent event) throws Exception{
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();

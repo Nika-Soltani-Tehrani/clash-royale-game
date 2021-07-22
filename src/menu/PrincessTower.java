@@ -2,8 +2,19 @@ package menu;
 
 import javafx.geometry.Point2D;
 
+/**
+ * The type Princess tower.
+ */
 public class PrincessTower extends Tower{
 
+    /**
+     * Instantiates a new Princess tower.
+     *
+     * @param color     the color
+     * @param location  the location
+     * @param id        the id
+     * @param cellValue the cell value
+     */
     public PrincessTower(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
         super(color,location,id,cellValue);
         this.range = 7.5;
@@ -16,6 +27,7 @@ public class PrincessTower extends Tower{
     {
         int x = (int)location.getX();
         int y = (int)location.getY();
+        damage = (int)(damage/hitSpeed);
         Creature enemy = null;
 
         for( int i = x - (int)range; i < y + range; i++)
@@ -39,5 +51,13 @@ public class PrincessTower extends Tower{
                 }
             }
         }
+        System.out.println(toString());
+    }
+    @Override
+    public String toString() {
+        return "princess tower{" +
+                "color='" + color + '\'' +
+                ", HP=" + HP +
+                '}';
     }
 }

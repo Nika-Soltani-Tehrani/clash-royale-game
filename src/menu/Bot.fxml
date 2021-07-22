@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="363.0" styleClass="bodybg" stylesheets="@../background%20.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="181.0" prefWidth="363.0">
+         <children>
+            <Label text="Choose your bot:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="166.0" prefWidth="363.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#startGameDumber" prefHeight="50.0" prefWidth="100.0" styleClass="bodybg1" stylesheets="@../background%20.css" text="Dumber" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="184.0" prefWidth="363.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#startGameDumb" prefHeight="50.0" prefWidth="100.0" styleClass="bodybg1" stylesheets="@../background%20.css" text="Dumb" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

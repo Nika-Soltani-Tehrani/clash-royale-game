@@ -4,7 +4,15 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import menu.BoardManager;
+
+/**
+ * The type Board game.
+ */
 public class BoardGame extends Group {
+    /**
+     * The constant CELL_WIDTH.
+     */
     public final static double CELL_WIDTH = 19.6;
 
     private int rowCount;
@@ -47,7 +55,7 @@ public class BoardGame extends Group {
     private Image waterImage;
     private Image roadImage;
     private Image grassImage;
-
+    private Image destroyImage;
 
 
     /**
@@ -90,6 +98,7 @@ public class BoardGame extends Group {
         this.roadImage = new Image(getClass().getResourceAsStream("/pic/ROAD.png"));
         this.waterImage = new Image(getClass().getResourceAsStream("/pic/WATER.png"));
         this.grassImage = new Image(getClass().getResourceAsStream("/pic/GRASS.png"));
+        this.destroyImage = new Image(getClass().getResourceAsStream("/pic/DESTROY.png"));
     }
 
     /**
@@ -111,9 +120,10 @@ public class BoardGame extends Group {
         }
     }
 
-    /** Updates the view to reflect the state of the model
+    /**
+     * Updates the view to reflect the state of the model
      *
-     *
+     * @param model the model
      */
     public void update(BoardManager model) {
         //for each ImageView, set the image to correspond with the CellValue of that cell
@@ -149,6 +159,9 @@ public class BoardGame extends Group {
                 }
                 else if (value == BoardManager.CellValue.TREE) {
                     cellViews[row][column].setImage(treeImage);
+                }
+                else if (value == BoardManager.CellValue.DESTROY) {
+                    cellViews[row][column].setImage(destroyImage);
                 }
                 else if (value == BoardManager.CellValue.bARCHER) {
                     cellViews[row][column].setImage(bArcherImage);
@@ -234,6 +247,7 @@ public class BoardGame extends Group {
                         cellViews[row][column].setImage(pacmanDownImage);
                     }
                 }
+
                 Image ghostNormal;
                 Image ghostEating;
                 if (row == model.getGhost1Location().getX() && column == model.getGhost1Location().getY()) {
@@ -246,6 +260,7 @@ public class BoardGame extends Group {
                 }
                 else
                     continue;
+
                 //make ghosts "blink" towards the end of ghostEatingMode (display regular ghost images on alternating updates of the counter)
                 if (BoardManager.isGhostEatingMode()) {
                     if (BoardController.getGhostEatingModeCounter() <= 6 && (BoardController.getGhostEatingModeCounter() % 2 == 0)) {
@@ -264,19 +279,39 @@ public class BoardGame extends Group {
         }
     }
 
+    /**
+     * Gets row count.
+     *
+     * @return the row count
+     */
     public int getRowCount() {
         return this.rowCount;
     }
 
+    /**
+     * Sets row count.
+     *
+     * @param rowCount the row count
+     */
     public void setRowCount(int rowCount) {
         this.rowCount = rowCount;
         this.initializeGrid();
     }
 
+    /**
+     * Gets column count.
+     *
+     * @return the column count
+     */
     public int getColumnCount() {
         return this.columnCount;
     }
 
+    /**
+     * Sets column count.
+     *
+     * @param columnCount the column count
+     */
     public void setColumnCount(int columnCount) {
         this.columnCount = columnCount;
         this.initializeGrid();

@@ -15,10 +15,17 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * The type Menu controller.
+ */
 public class MenuController {
     private static String username;
     private static int level;
     private static String password;
+    /**
+     * The constant dumb.
+     */
+    public static boolean dumb=false;
 
     @FXML
     private Label lblStatus;
@@ -33,6 +40,12 @@ public class MenuController {
     @FXML
     private Label lblLevel;
 
+    /**
+     * Login.
+     *
+     * @param event the event
+     * @throws Exception the exception
+     */
     public void login(ActionEvent event) throws Exception{
         boolean validLogin = false;
         File file = new File("information/info.txt");
@@ -65,8 +78,14 @@ public class MenuController {
         System.out.println(username);
     }
 
+    /**
+     * Start game dumb.
+     *
+     * @param event the event
+     * @throws Exception the exception
+     */
     @FXML
-    public void startGame(ActionEvent event) throws Exception{
+    public void startGameDumb(ActionEvent event) throws Exception{
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
@@ -75,8 +94,35 @@ public class MenuController {
         primaryStage.setTitle("ClashRoyal");
         primaryStage.setScene(new Scene(root, 600, 750));
         primaryStage.show();
+        dumb = true;
+
     }
 
+    /**
+     * Start game dumber.
+     *
+     * @param event the event
+     * @throws Exception the exception
+     */
+    @FXML
+    public void startGameDumber(ActionEvent event) throws Exception{
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("ClashRoyal.fxml"));
+        primaryStage.setTitle("ClashRoyal");
+        primaryStage.setScene(new Scene(root, 600, 750));
+        primaryStage.show();
+        dumb = false;
+
+    }
+
+    /**
+     * Exit.
+     *
+     * @param event the event
+     */
     public void exit(ActionEvent event){
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
@@ -84,12 +130,21 @@ public class MenuController {
     }
 
 
+    /**
+     * Music.
+     */
     public void music(){
-        Media media = new Media(("information/media/song.aiff"));
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        Media sound = new Media(getClass().getResource("music/intro.mp3").toExternalForm());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
 
+    /**
+     * Profile.
+     *
+     * @param event the event
+     * @throws Exception the exception
+     */
     public void profile(ActionEvent event) throws Exception{
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -102,12 +157,23 @@ public class MenuController {
 
     }
 
+    /**
+     * Update.
+     *
+     * @param event the event
+     */
     public void update(ActionEvent event){
         lblUsername.setText(lblUsername.getText()+this.username);
         lblPassword.setText(lblPassword.getText()+password);
         lblLevel.setText(lblLevel.getText()+Integer.toString(level));
     }
 
+    /**
+     * Menu.
+     *
+     * @param event the event
+     * @throws Exception the exception
+     */
     public void menu(ActionEvent event) throws Exception{
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -119,6 +185,12 @@ public class MenuController {
         primaryStage.show();
     }
 
+    /**
+     * Deck.
+     *
+     * @param event the event
+     * @throws Exception the exception
+     */
     public void Deck(ActionEvent event)throws Exception{
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -126,6 +198,23 @@ public class MenuController {
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("DeckViewer.fxml"));
         primaryStage.setTitle("Deck");
+        primaryStage.setScene(new Scene(root, 400, 600));
+        primaryStage.show();
+    }
+
+    /**
+     * Choose your bot.
+     *
+     * @param event the event
+     * @throws Exception the exception
+     */
+    public void chooseYourBot(ActionEvent event)throws Exception{
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("Bot.fxml"));
+        primaryStage.setTitle("bot");
         primaryStage.setScene(new Scene(root, 400, 600));
         primaryStage.show();
     }

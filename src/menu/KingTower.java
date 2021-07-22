@@ -2,10 +2,20 @@ package menu;
 
 import javafx.geometry.Point2D;
 
+/**
+ * The type King tower.
+ */
 public class KingTower extends Tower{
 
-    private boolean isActive = false;
 
+    /**
+     * Instantiates a new King tower.
+     *
+     * @param color     the color
+     * @param location  the location
+     * @param id        the id
+     * @param cellValue the cell value
+     */
     public KingTower(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
         super(color,location,id,cellValue);
         this.range = 7;
@@ -19,7 +29,8 @@ public class KingTower extends Tower{
         if (isKingActive(boardManager)){
             int x = (int) location.getX();
             int y = (int) location.getY();
-            Creature enemy = null;
+            damage = (int)(damage/hitSpeed);
+            Creature enemy;
 
             for (int i = x - (int) range; i < y + range; i++) {
                 for (int j = y - (int) range; i < x + range; j++) {
@@ -42,8 +53,15 @@ public class KingTower extends Tower{
                 }
             }
         }
+        System.out.println(toString());
     }
 
+    /**
+     * Is king active boolean.
+     *
+     * @param boardManager the board manager
+     * @return the boolean
+     */
     public boolean isKingActive(BoardManager boardManager)
     {
         if(this.color.equals("blue"))
@@ -54,9 +72,15 @@ public class KingTower extends Tower{
 
         if(this.color.equals("red"))
         {
-            if (boardManager.rPrincess < 2)
-                return true;
+            return boardManager.rPrincess < 2;
         }
         return false;
+    }
+    @Override
+    public String toString() {
+        return "king tower{" +
+                "color='" + color + '\'' +
+                ", HP=" + HP +
+                '}';
     }
 }

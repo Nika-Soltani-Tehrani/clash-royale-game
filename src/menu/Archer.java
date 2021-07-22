@@ -2,8 +2,19 @@ package menu;
 
 import javafx.geometry.Point2D;
 
+/**
+ * The type Archer.
+ */
 public class Archer extends Troop{
 
+    /**
+     * Instantiates a new Archer.
+     *
+     * @param color     the color
+     * @param location  the location
+     * @param id        the id
+     * @param cellValue the cell value
+     */
     public Archer(String color, Point2D location, int id, BoardManager.CellValue cellValue) {
         super(color,location,id,cellValue);
         this.cost = 3;
@@ -19,6 +30,7 @@ public class Archer extends Troop{
     {
         int x = (int)location.getX();
         int y = (int)location.getY();
+        damage = (int)(damage/hitSpeed);
         Creature enemy = null;
 
         for( int i = x; i < x + range; i++)
@@ -43,6 +55,32 @@ public class Archer extends Troop{
                     {
                         this.loseHP(((Spell) enemy).getAreaDamage());
                     }*/
+                    if (this.color.equals("red")){
+                        if (boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] == BoardManager.CellValue.BLUEKING) {
+                            boardManager.getBlueKingTower().loseHP(this.damage);
+                        }
+                        if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] == BoardManager.CellValue.BLUEQUEEN)) {
+                            if (y < 9) {
+                                boardManager.getBlue1PrincessTower().loseHP(this.damage);
+                            }
+                            if (y > 9) {
+                                boardManager.getBlue2PrincessTower().loseHP(this.damage);
+                            }
+                        }
+                    }
+                    if (this.color.equals("blue")){
+                        if (boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] == BoardManager.CellValue.REDKING) {
+                            boardManager.getBlueKingTower().loseHP(this.damage);
+                        }
+                        if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] == BoardManager.CellValue.REDQUEEN)) {
+                            if (y < 9) {
+                                boardManager.getRed1PrincessTower().loseHP(this.damage);
+                            }
+                            if (y > 9) {
+                                boardManager.getRed1PrincessTower().loseHP(this.damage);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -67,6 +105,32 @@ public class Archer extends Troop{
                     {
                         this.loseHP(((Spell) enemy).getAreaDamage());
                     }*/
+                    if (this.color.equals("red")){
+                        if (boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] == BoardManager.CellValue.BLUEKING) {
+                            boardManager.getBlueKingTower().loseHP(this.damage);
+                        }
+                        if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] == BoardManager.CellValue.BLUEQUEEN)) {
+                            if (y < 9) {
+                                boardManager.getBlue1PrincessTower().loseHP(this.damage);
+                            }
+                            if (y > 9) {
+                                boardManager.getBlue2PrincessTower().loseHP(this.damage);
+                            }
+                        }
+                    }
+                    if (this.color.equals("blue")){
+                        if (boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] == BoardManager.CellValue.REDKING) {
+                            boardManager.getBlueKingTower().loseHP(this.damage);
+                        }
+                        if ((boardManager.getGrid()[(int) Math.ceil(i)][(int) Math.ceil(y)] == BoardManager.CellValue.REDQUEEN)) {
+                            if (y < 9) {
+                                boardManager.getRed1PrincessTower().loseHP(this.damage);
+                            }
+                            if (y > 9) {
+                                boardManager.getRed1PrincessTower().loseHP(this.damage);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -91,6 +155,32 @@ public class Archer extends Troop{
                     {
                         this.loseHP(((Spell) enemy).getAreaDamage());
                     }*/
+                    if (this.color.equals("red")){
+                        if (boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] == BoardManager.CellValue.BLUEKING) {
+                            boardManager.getBlueKingTower().loseHP(this.damage);
+                        }
+                        if ((boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] == BoardManager.CellValue.BLUEQUEEN)) {
+                            if (y < 9) {
+                                boardManager.getBlue1PrincessTower().loseHP(this.damage);
+                            }
+                            if (y > 9) {
+                                boardManager.getBlue2PrincessTower().loseHP(this.damage);
+                            }
+                        }
+                    }
+                    if (this.color.equals("blue")){
+                        if (boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] == BoardManager.CellValue.REDKING) {
+                            boardManager.getBlueKingTower().loseHP(this.damage);
+                        }
+                        if ((boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] == BoardManager.CellValue.REDQUEEN)) {
+                            if (y < 9) {
+                                boardManager.getRed1PrincessTower().loseHP(this.damage);
+                            }
+                            if (y > 9) {
+                                boardManager.getRed1PrincessTower().loseHP(this.damage);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -111,9 +201,44 @@ public class Archer extends Troop{
                     {
                         ((Building) enemy).loseHP(this.damage);
                     }
-
+                    if (this.color.equals("red")){
+                        if (boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] == BoardManager.CellValue.BLUEKING) {
+                            boardManager.getBlueKingTower().loseHP(this.damage);
+                        }
+                        if ((boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] == BoardManager.CellValue.BLUEQUEEN)) {
+                            if (y < 9) {
+                                boardManager.getBlue1PrincessTower().loseHP(this.damage);
+                            }
+                            if (y > 9) {
+                                boardManager.getBlue2PrincessTower().loseHP(this.damage);
+                            }
+                        }
+                    }
+                    if (this.color.equals("blue")){
+                        if (boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] == BoardManager.CellValue.REDKING) {
+                            boardManager.getBlueKingTower().loseHP(this.damage);
+                        }
+                        if ((boardManager.getGrid()[(int) Math.ceil(x)][(int) Math.ceil(i)] == BoardManager.CellValue.REDQUEEN)) {
+                            if (y < 9) {
+                                boardManager.getRed1PrincessTower().loseHP(this.damage);
+                            }
+                            if (y > 9) {
+                                boardManager.getRed1PrincessTower().loseHP(this.damage);
+                            }
+                        }
+                    }
                 }
             }
         }
+        System.out.println(toString());
+    }
+
+    @Override
+    public String toString() {
+        return "Archer{" +
+                "color='" + color + '\'' +
+                ", name='" + name + '\'' +
+                ", HP=" + HP +
+                '}';
     }
 }

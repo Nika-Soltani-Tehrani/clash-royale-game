@@ -10,6 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 
+/**
+ * The type Cell viewer controller.
+ */
 public class CellViewerController extends ListCell<Card> {
 
     @FXML
